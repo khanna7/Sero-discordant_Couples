@@ -16,15 +16,7 @@
 ```
 
 *At time of HBHCT*,   
-  * Identify all serodiscordant partnerships  
-  * Check which HIV-infected actors in serodiscordant
-    partnerships have >1 partnership at that time  
-  * Of these partnerships, idenfify the longest running partnership 
-  * Set indicator for primary serodiscordant 
-    partneships  (`primary_sdp = 1`) for these partnerships.
-    
-
-*Identify serodiscordant partnerships*
+  * Identify all serodiscordant partnerships
 ```R
       ## Edgelist
          nw.el <- as.edgelist(nw, retain.all.vertices = T)
@@ -42,13 +34,13 @@
                                     )
          transmittable.f <- nw.el[discordant.fpos, 2]
          infectible.m    <- nw.el[discordant.fpos, 1]
-```
-
-In which SDPs, does the infected individual have more than 1 partner at a given time?
-
-
-Identify longest running partnership for HIV-infected individuals in SD
+```  
+  * Check which HIV-infected actors in serodiscordant
+    partnerships have >1 partnership at that time
 
 
-Set indicator `primary_sdp = 1` 
+  * Of these partnerships, idenfify the longest running partnership 
+  * Set indicator for primary serodiscordant 
+    partneships  (`primary_sdp = 1`) for these partnerships.
+    
 
