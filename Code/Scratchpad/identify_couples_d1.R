@@ -37,10 +37,10 @@
 ##############################################################
    ## Read in burnin data
       load("../../Burnin_Data/burnin.21Feb_UG_phi004_newatts_run1.RData")
-      ug.nw <- network.collapse(nw, at=1041)
+      ug.nw <- network.extract(nw, at=1041)
 
       load("../../Burnin_Data/burnin.12March_ZA_phi004_incdur1000_newatts_30yrburn_run1.RData")
-      za.nw <- network.collapse(nw, at=781)
+      za.nw <- network.extract(nw, at=781)
 
 ##############################################################
 
@@ -86,11 +86,10 @@
          infectible.m    <- nw.el[discordant.fpos, 1]
 
       ## positively serodiscordant men with multiple partners
-         id.sdp.m.conc.p <- transmittable.m[which(duplicated(transmittable.m))]
-
+         sdp.m.conc.p <- which(duplicated(transmittable.m))
+         ptns.sdp.m.conc.p <-
+  
       ## positively serodiscordant women with multiple partners
-         id.sdp.f.conc.p <- transmittable.f[which(duplicated(transmittable.f))]
-
-
+         sdp.f.conc.p <- transmittable.f[which(duplicated(transmittable.f))]
 
 ##############################################################
