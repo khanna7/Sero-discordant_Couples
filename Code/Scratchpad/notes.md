@@ -8,9 +8,11 @@
   * Add placeholder for edge-attribute "primary_sdp" for primary serodiscordant partnerships.  
     
 ```R
-     set.edge.attribute(nw, attrname, value, e=seq_along(x$mel))
-     set.edge.value(nw, attrname, value, e=seq_along(x$mel))
-     ## nw is a network object
+     set.edge.attribute(nw, "primary_sdp", value=0)
+     (nw%e%"primary_sdp")
+     ## nw is a networkDynamic object -- created through network.extract()
+     ## Note: in set.edge.attribute, if you add a fourth argument e=seq_along(x$mel), then 
+     ## even inactive edges will be assigned a value of 0.
 ```
 
 *At time of HBHCT*,   
@@ -22,7 +24,7 @@
     partneships  (`primary_sdp = 1`) for these partnerships.
     
 
-Identify serodiscordant partnerships
+*Identify serodiscordant partnerships*
 ```R
       ## Edgelist
          nw.el <- as.edgelist(nw, retain.all.vertices = T)
