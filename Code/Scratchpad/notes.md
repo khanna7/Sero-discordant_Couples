@@ -2,10 +2,11 @@
 
 ## Identify serodiscordant couples
 
-### We can follow the following steps:
+### Follow the steps below.
 
-    Before any intervention runs,
-     *Add placeholder for edge-attribute "primary_sdp" for primary serodiscordant partnerships.  
+Before any intervention runs,  
+  *Add placeholder for edge-attribute "primary_sdp" for primary serodiscordant partnerships.  
+    
     
 
     At time of HBHCT,   
