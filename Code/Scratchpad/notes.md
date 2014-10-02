@@ -4,8 +4,8 @@
 
 ### Follow the steps below.
 
-*Before any intervention runs*,  
-  * Add placeholder for edge-attribute "primary_sdp" for primary serodiscordant partnerships.  
+1. *Before any intervention runs*,  
+   * Add placeholder for edge-attribute "primary_sdp" for primary serodiscordant partnerships.  
     
 ```R
      set.edge.attribute(nw, "primary_sdp", value=0)
@@ -15,8 +15,8 @@
      ## even inactive edges will be assigned a value of 0.
 ```
 
-*At time of HBHCT*,   
-  * Identify all serodiscordant partnerships
+2. *At time of HBHCT*,   
+   * Identify all serodiscordant partnerships
 ```R
       ## Edgelist
          nw.el <- as.edgelist(nw, retain.all.vertices = T)
