@@ -1,11 +1,11 @@
-# Notes for serodiscordant couples coding
+# Notes for computation
 
 ## Identify serodiscordant couples
 
 ### Follow the steps below.
 
 Before any intervention runs,  
-  *Add placeholder for edge-attribute "primary_sdp" for primary serodiscordant partnerships.  
+  * Add placeholder for edge-attribute "primary_sdp" for primary serodiscordant partnerships.  
     
     
 
