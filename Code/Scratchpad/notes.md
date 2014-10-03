@@ -36,11 +36,34 @@
          infectible.m    <- nw.el[discordant.fpos, 1]
 ```  
   * Check which HIV-infected actors in serodiscordant
-    partnerships have >1 partnership at that time
+    partnerships have >1 partnership at that time. Of these partnerships, idenfify the longest running partnership
+```R
+      ## now obtain formation, dissolution and
+      ## duration from "egde.activity," 
+         nw.el.activity <- unlist(get.edge.activity(nw))
+         nw.el.form.diss <- matrix(nw.el.activity,
+                                   nrow=length(nw.el.activity)/2,
+                                   ncol=2, byrow=TRUE)
 
+         nw.el.duration <- nw.el.form.diss[,2]-
+                           nw.el.form.diss[,1]
 
-  * Of these partnerships, idenfify the longest running partnership 
+      ## for longest partnership of HIV-infected partners
+      ## set "primary_sdp"=1
+
+         primary.sdp <- rep(NA, nrow(nw.el))
+
+         sdp.m.1.p <- transmittable.m[which(duplicated(transmittable.m)==FALSE)] #males with 1 partner
+
+         for(i in 1:length(sdp.m.1.p)){
+           edgeID <- which(nw.el[,1] == sdp.m.1.p[i])
+             cat("", "\n")
+             cat(c(edgeID, min(edgeID), "\n"))
+             cat(min(nw.el.form.diss[edgeID,1]), "\n")
+             cat(pmin(nw.el.form.diss[edgeID,1]), "\n")
+           } 
+
   * Set indicator for primary serodiscordant 
     partneships  (`primary_sdp = 1`) for these partnerships.
-    
+```
 
