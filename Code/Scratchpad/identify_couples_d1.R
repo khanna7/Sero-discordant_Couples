@@ -48,6 +48,9 @@
    ## Uganda: Enlist serodiscodant partnerships
          nw <- ug.nw
 
+         set.edge.attribute(nw, "primary_sdp", value=0)
+         (nw%e%"primary_sdp")
+
       ## Edgelist
          nw.el <- as.edgelist(nw, retain.all.vertices = T)
 
@@ -85,11 +88,58 @@
          transmittable.f <- nw.el[discordant.fpos, 2]
          infectible.m    <- nw.el[discordant.fpos, 1]
 
-      ## positively serodiscordant men with multiple partners
-         sdp.m.conc.p <- which(duplicated(transmittable.m))
-         ptns.sdp.m.conc.p <-
+      ## hiv-infected serodiscordant men with multiple partners
+         sdp.m.conc.p <- transmittable.m[which(duplicated(transmittable.m))]
   
-      ## positively serodiscordant women with multiple partners
+      ## hiv-infected serodiscordant women with multiple partners
          sdp.f.conc.p <- transmittable.f[which(duplicated(transmittable.f))]
 
+      ## we now know which:
+         ##1. hiv-infected serodiscordant men
+         ##   have multiple partners, and,
+         ##2. hiv-infected serodiscordant women
+         ##   have multiple partners, and,
+
+      ## find edgeIDs for multiple partnerships of
+      ## HIV-infected men
+         which((nw.el[,1]) == sdp.m.conc.p[1]) ###...
+         which((nw.el[,1]) == sdp.m.conc.p[length(sdp.m.conc.p)])
+
+      ## find edgeIDs for multiple partnerships of
+      ## HIV-infected women
+         which((nw.el[,2]) == sdp.f.conc.p[1]) ###...
+         which((nw.el[,2]) == sdp.f.conc.p[length(sdp.f.conc.p)])
+
+      ## now obtain formation, dissolution and
+      ## duration from "egde.activity," 
+         nw.el.activity <- unlist(get.edge.activity(nw))
+         nw.el.form.diss <- matrix(nw.el.activity,
+                                   nrow=length(nw.el.activity)/2,
+                                   ncol=2, byrow=TRUE)
+
+         nw.el.duration <- nw.el.form.diss[,2]-
+                           nw.el.form.diss[,1]
+
+      ## for longest partnership of HIV-infected partners
+      ## set "primary_sdp"=1
+
+         primary.sdp <- rep(NA, nrow(nw.el))
+
+         sdp.m.1.p <- transmittable.m[which(duplicated(transmittable.m)==FALSE)] #males with 1 partner
+
+         for(i in 1:length(sdp.m.1.p)){
+           edgeID <- which(nw.el[,1] == sdp.m.1.p[i])
+             cat("", "\n")
+             cat(c(edgeID, min(edgeID), "\n"))
+             cat(min(nw.el.form.diss[edgeID,1]), "\n")
+             cat(pmin(nw.el.form.diss[edgeID,1]), "\n")
+           } 
+
+                 
+         sdp.f.1.p <- transmittable.f[which(duplicated(transmittable.f)==FALSE)] #females with 1 partner
+
+         intersect(sdp.m.1.p, nw.el[,1])
+
+
 ##############################################################
+
