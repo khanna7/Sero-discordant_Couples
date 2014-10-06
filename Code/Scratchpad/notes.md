@@ -5,11 +5,11 @@
 ### Follow the steps below.
 
 1. *Before any intervention runs*,  
-   * Add placeholder for edge-attribute "primary_sdp" for primary serodiscordant partnerships.  
+   * Add placeholder for edge-attribute "primary.sdp" for primary serodiscordant partnerships.  
     
 ```R
-     set.edge.attribute(nw, "primary_sdp", value=0)
-     (nw%e%"primary_sdp")
+     set.edge.attribute(nw, "primary.sdp", value=0)
+     (nw%e%"primary.sdp")
      ## nw is a networkDynamic object -- created through network.extract()
      ## Note: in set.edge.attribute, if you add a fourth argument e=seq_along(x$mel), then 
      ## even inactive edges will be assigned a value of 0.
@@ -49,7 +49,7 @@
                            nw.el.form.diss[,1]
 
       ## for longest partnership of HIV-infected partners
-      ## set "primary_sdp"=1
+      ## set "primary.sdp"=1
 
          primary.sdp <- rep(NA, nrow(nw.el))
 
@@ -64,6 +64,6 @@
            } 
 
   * Set indicator for primary serodiscordant 
-    partneships  (`primary_sdp = 1`) for these partnerships.
+    partneships  (`primary.sdp = 1`) for these partnerships.
 ```
 
