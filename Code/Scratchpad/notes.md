@@ -34,6 +34,9 @@
                                     )
          transmittable.f <- nw.el[discordant.fpos, 2]
          infectible.m    <- nw.el[discordant.fpos, 1]
+         
+      ## Retreive ART status attribute
+        art.status <- nw%v%"art.status"
 ```  
   * Check which HIV-infected actors in serodiscordant
     partnerships have >1 partnership at that time. Of these partnerships, idenfify the longest running partnership
@@ -44,26 +47,53 @@
          nw.el.form.diss <- matrix(nw.el.activity,
                                    nrow=length(nw.el.activity)/2,
                                    ncol=2, byrow=TRUE)
-
-         nw.el.duration <- nw.el.form.diss[,2]-
-                           nw.el.form.diss[,1]
+        
+         not.inf <- which(nw.el.form.diss[,2] != Inf)
+         nw.el.form.diss <- nw.el.form.diss[-not.inf,]
+         nw.el.form.diss <- cbind(nw.el, nw.el.form.diss)
 
       ## for longest partnership of HIV-infected partners
       ## set "primary.sdp"=1
 
-         primary.sdp <- rep(NA, nrow(nw.el))
+         primary.sdp <- rep(-1, nrow(nw.el))
+         
+                  ## where infected partner is male
+         for(i in 1:length(transmittable.m)){
+           edgeID <- which(nw.el.form.diss[,1] ==
+                           transmittable.m[i])
+           sht.pt <- which(rank(nw.el.form.diss[edgeID,3],
+                                ties.method='min') <= 1)
+                     ## ptshp with lowest formation time
+                     ## (all ptshps have diss. time of Inf)
+           sht.pt <- min(sht.pt)
+           cat(sht.pt, " ", edgeID[sht.pt], " ", "\n"
+               )
+           primary.sdp[edgeID[sht.pt]] <- 1
+           ## update ART status
+           art.status[nw.el[edgeID[sht.pt], 1]] <- 1
+           cat("ART-statuses to be updated are ",
+               (nw.el[edgeID[sht.pt], 1]), "\n")
+         } 
+         
+                  ## where infected partner is female
+         for(i in 1:length(transmittable.f)){
+           edgeID <- which(nw.el.form.diss[,2] ==
+                           transmittable.f[i])
+           sht.pt <- which(rank(nw.el.form.diss[edgeID,3],
+                                ties.method='min') <= 1)
+           sht.pt <- min(sht.pt)
+           cat(sht.pt, " ", edgeID[sht.pt], " ", "\n"
+               )
+           primary.sdp[edgeID[sht.pt]] <- 1
+           ## update ART status
+           art.status[nw.el[edgeID[sht.pt], 2]] <- 1
+           cat("ART-statuses to be updated are ",
+               (nw.el[edgeID[sht.pt], 2]), "\n")
+         } 
 
-         sdp.m.1.p <- transmittable.m[which(duplicated(transmittable.m)==FALSE)] #males with 1 partner
-
-         for(i in 1:length(sdp.m.1.p)){
-           edgeID <- which(nw.el[,1] == sdp.m.1.p[i])
-             cat("", "\n")
-             cat(c(edgeID, min(edgeID), "\n"))
-             cat(min(nw.el.form.diss[edgeID,1]), "\n")
-             cat(pmin(nw.el.form.diss[edgeID,1]), "\n")
-           } 
-
-  * Set indicator for primary serodiscordant 
-    partneships  (`primary.sdp = 1`) for these partnerships.
+                 
+         nw%v%"art.status" <- art.status #update art status
+         nw%e%"primary.sdp" <- primary.sdp #update edge-attribute "primary.sdp"
+         
 ```
 
