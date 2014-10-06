@@ -48,11 +48,12 @@
    ## Uganda: Enlist serodiscodant partnerships
          nw <- ug.nw
 
-         set.edge.attribute(nw, "primary_sdp", value=0)
-         (nw%e%"primary_sdp")
+         set.edge.attribute(nw, "primary.sdp", value=0)
+         (nw%e%"primary.sdp")
 
       ## Edgelist
          nw.el <- as.edgelist(nw, retain.all.vertices = T)
+         ## nw.el <- as.edgelist(nw)
 
       ## Relevant attributes of actors
          status.el <- matrix((nw %v% "inf.status")[nw.el], ncol = 2)
@@ -116,30 +117,51 @@
          nw.el.form.diss <- matrix(nw.el.activity,
                                    nrow=length(nw.el.activity)/2,
                                    ncol=2, byrow=TRUE)
-
-         nw.el.duration <- nw.el.form.diss[,2]-
-                           nw.el.form.diss[,1]
-
+         not.inf <- which(nw.el.form.diss[,2] != Inf)
+         nw.el.form.diss <- nw.el.form.diss[-not.inf,]
+         nw.el.form.diss <- cbind(nw.el, nw.el.form.diss)
+         
       ## for longest partnership of HIV-infected partners
-      ## set "primary_sdp"=1
+      ## set "primary.sdp"=1
 
-         primary.sdp <- rep(NA, nrow(nw.el))
+         primary.sdp <- rep(-1, nrow(nw.el))
 
-         sdp.m.1.p <- transmittable.m[which(duplicated(transmittable.m)==FALSE)] #males with 1 partner
+         ## where infected partner is male
+         for(i in 1:length(transmittable.m)){
+           edgeID <- which(nw.el.form.diss[,1] ==
+                           transmittable.m[i])
+           sht.pt <- which(rank(nw.el.form.diss[edgeID,3],
+                                ties.method='min') <= 1)
+                     ## ptshp with lowest formation time
+                     ## (all ptshps have diss. time of Inf)
+           sht.pt <- min(sht.pt)
+           cat(sht.pt, " ", edgeID[sht.pt], " ", "\n"
+               )
+           primary.sdp[edgeID[sht.pt]] <- 1
+           ## update ART status
+           art.status[nw.el[edgeID[sht.pt], 1]] <- 1
+           cat("ART-statuses to be updated are ",
+               (nw.el[edgeID[sht.pt], 1]), "\n")
+         } 
 
-         for(i in 1:length(sdp.m.1.p)){
-           edgeID <- which(nw.el[,1] == sdp.m.1.p[i])
-             cat("", "\n")
-             cat(c(edgeID, min(edgeID), "\n"))
-             cat(min(nw.el.form.diss[edgeID,1]), "\n")
-             cat(pmin(nw.el.form.diss[edgeID,1]), "\n")
-           } 
+         ## where infected partner is female
+         for(i in 1:length(transmittable.f)){
+           edgeID <- which(nw.el.form.diss[,2] ==
+                           transmittable.f[i])
+           sht.pt <- which(rank(nw.el.form.diss[edgeID,3],
+                                ties.method='min') <= 1)
+           sht.pt <- min(sht.pt)
+           cat(sht.pt, " ", edgeID[sht.pt], " ", "\n"
+               )
+           primary.sdp[edgeID[sht.pt]] <- 1
+           ## update ART status
+           art.status[nw.el[edgeID[sht.pt], 2]] <- 1
+           cat("ART-statuses to be updated are ",
+               (nw.el[edgeID[sht.pt], 2]), "\n")
+         } 
 
                  
-         sdp.f.1.p <- transmittable.f[which(duplicated(transmittable.f)==FALSE)] #females with 1 partner
-
-         intersect(sdp.m.1.p, nw.el[,1])
-
+         nw%v%"art.status" <- art.status
 
 ##############################################################
 
