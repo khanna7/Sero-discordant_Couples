@@ -96,5 +96,5 @@
          nw%e%"primary.sdp" <- primary.sdp #update edge-attribute "primary.sdp"
          
 ```
-## Next step: wrap these steps in a function, so intervention can be implemented smoothly
+## Next step: Steps wrapped in function, tested wrapper function. Now., review scenario table. If new things need to be coded, code them. If not, assemble pieces to simulate interventions.
 
