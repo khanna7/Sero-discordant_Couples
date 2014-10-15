@@ -1,3 +1,6 @@
+## 14 Oct 2014: Add change in frequency of unprotected intercourse
+## for people in SDP
+
 ## Sep 2014: Spelling error LHS said cd4.count.toda in
 ## cd4.count.today <- nw%v%"cd4.count.today"
 
@@ -185,6 +188,9 @@
        art.status <- nw%v%"art.status"
        art.type <- nw%v%"art.type"
 
+       primary.sdp <- nw%e%"primary.sdp"#14Oct14
+
+
        ## Transmission from male to female
        ## browser()
        
@@ -224,6 +230,10 @@
          infectivity.transmittable.m[infectible.preg]*preg.susc.mult
        }           ## for men with susceptible male partners, modify infectivity
 
+
+       ## 14Oct14: which men have primary serodiscordant partnerships
+       
+       
        transmit.prob.infectible.f <- runif(length(infectible.f))
                    ## probabilities for transmission in male-positive partnerships
        
