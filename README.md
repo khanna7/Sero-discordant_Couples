@@ -18,3 +18,11 @@ and so on...
 |    HB-HCT Only (Baseline 2)                             |    3 years              |    80%               |    Option A, current        |    350                    |    58.4%         |    UG: 88%   SA: 85%        |    350                    |    58.4%         |    UG: 88%   SA: 85%        |    63%                               |
 |    HB-HCT with immediate ART for SDC (Main Analysis)    |    3 years              |    80%               |    Option A, current        |    350                    |    58.4%         |    UG: 88%   SA: 85%        |    Any CD4                |    90%           |    UG: 88%   SA: 85%        |    63%                               |
 
+If both partners have tested
+   a. initiate behavior change
+   b. initiate ART
+  
+If only one partner have tested
+   a. do nothing
+   
+   
