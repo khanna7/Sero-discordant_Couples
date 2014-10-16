@@ -7,6 +7,11 @@
 ### Progression of versions
 ##############################################################
 ### 7 Oct 2014: Write wrapper function
+
+### 16 Oct 2014:
+    ## a. The identification of primary SDP and test&treat
+          ## for them should  be separate. Comment out change
+          ## in ART status here
 ##############################################################
 
 identify.sdp.update.art <- function(nw,
@@ -71,17 +76,17 @@ identify.sdp.update.art <- function(nw,
                )
            primary.sdp[edgeID[sht.pt]] <- 1
            ## update ART status
-           coin.toss <- runif(1, 0, 1)
-           if (verbose){
-             cat("Coin-toss for men is ", coin.toss, "\n")
-           }
-           if (coin.toss <= sdp.coverage){
-           art.status[nw.el[edgeID[sht.pt], 1]] <- 1
-           if (verbose){
-             cat("ART-statuses to be updated are ",
-                 (nw.el[edgeID[sht.pt], 1]), "\n")
-           }
-         }
+         ##   coin.toss <- runif(1, 0, 1) ##16OCt14: comment out
+         ##   if (verbose){
+         ##     cat("Coin-toss for men is ", coin.toss, "\n")
+         ##   }
+         ##   if (coin.toss <= sdp.coverage){
+         ##   art.status[nw.el[edgeID[sht.pt], 1]] <- 1
+         ##   if (verbose){
+         ##     cat("ART-statuses to be updated are ",
+         ##         (nw.el[edgeID[sht.pt], 1]), "\n")
+         ##   }
+         ## }
          } 
 
           ## where infected partner is female
@@ -95,21 +100,21 @@ identify.sdp.update.art <- function(nw,
                 )
             primary.sdp[edgeID[sht.pt]] <- 1
             ## update ART status
-            coin.toss <- runif(1, 0, 1)
-            if (verbose){
-              cat("Coin-toss for women is ", coin.toss, "\n")
-            }
-            if (coin.toss <= sdp.coverage){
-              art.status[nw.el[edgeID[sht.pt], 2]] <- 1
-              if (verbose){
-                cat("ART-statuses to be updated are ",
-                    (nw.el[edgeID[sht.pt], 2]), "\n")
-              }
-         }
+         ##    coin.toss <- runif(1, 0, 1) ##16Oct14: comment out
+         ##    if (verbose){
+         ##      cat("Coin-toss for women is ", coin.toss, "\n")
+         ##    }
+         ##    if (coin.toss <= sdp.coverage){
+         ##      art.status[nw.el[edgeID[sht.pt], 2]] <- 1
+         ##      if (verbose){
+         ##        cat("ART-statuses to be updated are ",
+         ##            (nw.el[edgeID[sht.pt], 2]), "\n")
+         ##      }
+         ## }
          }
 
        ## update relevant attributes 
-       nw%v%"art.status" <- art.status
+       ## nw%v%"art.status" <- art.status ##16OCt14:comment out
        nw%e%"primary.sdp" <- primary.sdp
        
        ## return network object
