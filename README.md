@@ -19,7 +19,7 @@ and so on...
 |    HB-HCT with immediate ART for SDC (Main Analysis)    |    3 years              |    80%               |    Option A, current        |    350                    |    58.4%         |    UG: 88%   SA: 85%        |    Any CD4                |    90%           |    UG: 88%   SA: 85%        |    63%                               |
 
 
-**Notes for simulation**   
+**Serodiscordant Partnership (SDP) Intervention**   
   * If both partners have tested and are serodiscordant:    
     a. initiate behavior change (all)    
     b. initiate ART (at scenario-specific uptake level (58.4% or 90%) and 
@@ -34,7 +34,9 @@ and so on...
    * We assumed the probability of each partner in a relationship getting tested  
      for HIV was independent of the other partner getting tested  
    * We assume disclosure between partners occurs 100% of the time that both partners test  
-    
+
+**Notes and Definition**
+  Please see detailed chart [here]().
 
    
    
