@@ -9,6 +9,10 @@
 ### 25 Sep 2014
     ## a. Read in burnin data
 
+### 16 Oct 2014:
+    ## a. The identification of primary SDP and test&treat
+          ## for them should  be separate. Comment out change
+          ## in ART status here
 ##############################################################
 
 ##############################################################
@@ -106,13 +110,13 @@
                )
            primary.sdp[edgeID[sht.pt]] <- 1
            ## update ART status
-           coin.toss <- runif(1, 0, 1)
-           cat("Coin-toss for men is ", coin.toss, "\n")
-           if (coin.toss <= sdp.coverage){
-           art.status[nw.el[edgeID[sht.pt], 1]] <- 1
-           cat("ART-statuses to be updated are ",
-               (nw.el[edgeID[sht.pt], 1]), "\n")
-         }
+         ##   coin.toss <- runif(1, 0, 1) #16oct14:commented out
+         ##   cat("Coin-toss for men is ", coin.toss, "\n")
+         ##   if (coin.toss <= sdp.coverage){
+         ##   art.status[nw.el[edgeID[sht.pt], 1]] <- 1
+         ##   cat("ART-statuses to be updated are ",
+         ##       (nw.el[edgeID[sht.pt], 1]), "\n")
+         ## }
          } 
 
          ## where infected partner is female
@@ -126,12 +130,12 @@
                )
            primary.sdp[edgeID[sht.pt]] <- 1
            ## update ART status
-           coin.toss <- runif(1, 0, 1)
-           cat("Coin-toss for women is ", coin.toss, "\n")
-           if (coin.toss <= sdp.coverage){
-           art.status[nw.el[edgeID[sht.pt], 2]] <- 1
-           cat("ART-statuses to be updated are ",
-               (nw.el[edgeID[sht.pt], 2]), "\n")
+           ## coin.toss <- runif(1, 0, 1) #16oct14:commented out
+           ## cat("Coin-toss for women is ", coin.toss, "\n")
+           ## if (coin.toss <= sdp.coverage){
+           ## art.status[nw.el[edgeID[sht.pt], 2]] <- 1
+           ## cat("ART-statuses to be updated are ",
+           ##     (nw.el[edgeID[sht.pt], 2]), "\n")
          }
          } 
 
@@ -142,7 +146,7 @@
             ## (nw%v%"art.status")[11093] #old ART status
             ## (art.status)[11093] #updated ART status
       
-         nw%v%"art.status" <- art.status
+         ## nw%v%"art.status" <- art.status #16oct14
          nw%e%"primary.sdp" <- primary.sdp
 ##############################################################
 
