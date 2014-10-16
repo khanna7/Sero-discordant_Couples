@@ -35,8 +35,8 @@ and so on...
      for HIV was independent of the other partner getting tested  
    * We assume disclosure between partners occurs 100% of the time that both partners test  
 
-**Notes and Definition**
-  Please see detailed chart [here]().
+**Notes and Definition**  
+  Please see detailed chart [here](https://github.com/khanna7/Sero-discordant_Couples/blob/master/Scenario_table_for_SDC_model_STR_15Oct14.docx).
 
    
    
