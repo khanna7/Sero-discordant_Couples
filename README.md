@@ -18,11 +18,23 @@ and so on...
 |    HB-HCT Only (Baseline 2)                             |    3 years              |    80%               |    Option A, current        |    350                    |    58.4%         |    UG: 88%   SA: 85%        |    350                    |    58.4%         |    UG: 88%   SA: 85%        |    63%                               |
 |    HB-HCT with immediate ART for SDC (Main Analysis)    |    3 years              |    80%               |    Option A, current        |    350                    |    58.4%         |    UG: 88%   SA: 85%        |    Any CD4                |    90%           |    UG: 88%   SA: 85%        |    63%                               |
 
-If both partners have tested
-   a. initiate behavior change
-   b. initiate ART
+
+**Notes for simulation**   
+  * If both partners have tested and are serodiscordant:    
+    a. initiate behavior change (all)    
+    b. initiate ART (at scenario-specific uptake level (58.4% or 90%) and 
+       eligibility criteria (CD4 count<350 or any CD4 count)  
   
-If only one partner have tested
-   a. do nothing
+  * If only one partner has tested   
+    a. do nothing (treat the same as the rest of the population who are 
+       not in a known SDC)
+       
+**Limitations**    
+   * We did not model increased rates of relationship dissolution in SDCs   
+   * We assumed the probability of each partner in a relationship getting tested  
+     for HIV was independent of the other partner getting tested  
+   * We assume disclosure between partners occurs 100% of the time that both partners test  
+    
+
    
    
