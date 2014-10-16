@@ -1,3 +1,8 @@
+## 16 Oct 2014: Add change in frequency of unprotected intercourse
+## for people in SDP:
+   ## a. add parameter "decline.ui"
+   ## b. modify infectivity of infected men and women in known SDPs
+
 ## 14 Oct 2014: Add change in frequency of unprotected intercourse
 ## for people in SDP
 
@@ -158,6 +163,7 @@
                         # ages 15-24, 25-34, 25-44, 45 and above
            eligible.cd4, #28Oct13: (d)
            baseline.f.ges.visit, #28Oct13: (d) -- for pregnant women
+           decline.ui, #16Oct14
            ...
            ) {
 
@@ -170,6 +176,8 @@
        ## 3Jun13: only pulling out active network
 
        status.el <- matrix((nw %v% "inf.status")[nw.el], ncol = 2)
+
+       ## needed vertex attributes
        inf.time <- nw %v% "inf.time"
        time.since.infection <- nw %v% "time.since.infection" # ASK
 
@@ -188,8 +196,9 @@
        art.status <- nw%v%"art.status"
        art.type <- nw%v%"art.type"
 
-       primary.sdp <- nw%e%"primary.sdp"#14Oct14
-
+       ## needed edge attributes #16Oct14
+          known.sdp <- nw%e%"known.sdp"
+          known.sdp.true <- which(known.sdp == 1)
 
        ## Transmission from male to female
        ## browser()
@@ -201,9 +210,22 @@
        ## output -- instead of giving a list of
        ## rownumbers, it gave a list with True and false -- but that is okay.
 
+       #######################################################################
+       ## 16Oct14
+          discordant.mpos.known.sdp <- intersect(discordant.mpos,
+                                                 known.sdp.true)
+       #######################################################################
+       
        transmittable.m <- nw.el[discordant.mpos, 1]
        infectible.f <- nw.el[discordant.mpos, 2]
 
+       #######################################################################
+       ## 16Oct14
+          transmittable.m.in.known.sdp <- nw.el[discordant.mpos.known.sdp,
+                                                1)
+       #######################################################################
+
+       
        ## 10 June 2013: Incorporate effect of susceptible ``infectible''
        ## pregnant women -- infectivities across these partnerships will be
        ## greater
@@ -224,6 +246,14 @@
 
        infectivity.transmittable.m <- infectivity.today[transmittable.m]
                     ## what are the infectivities of their male partners?
+
+       #######################################################################
+       ## 16Oct14
+          infectivity.transmittable.m[transmittable.m.known.sdp] <-
+            infectivity.today[transmittable.m.known.sdp]*(1-decline.ui)
+            
+       #######################################################################
+
        
        if (length(infectible.preg) > 0){
        infectivity.transmittable.m[infectible.preg] <-
@@ -299,11 +329,25 @@
        discordant.fpos <- intersect(which(status.el[, 2] == 1),
                                     which(status.el[, 1] == 0)
                                     )
+
+       #######################################################################
+       ## 16Oct14
+          discordant.fpos.known.sdp <- intersect(discordant.fpos,
+                                                 known.sdp.true)
+       #######################################################################
+
        ## i thought steve's commented "discordant.fpos" had confusing 
        ## output -- instead of giving a list of
        ## rownumbers, it gave a list with True and false -- but that is okay.
        transmittable.f <- nw.el[discordant.fpos, 2]
        infectible.m    <- nw.el[discordant.fpos, 1]
+
+       #######################################################################
+       ## 16Oct14
+          transmittable.f.in.known.sdp <- nw.el[discordant.fpos.known.sdp,
+                                                2)
+       #######################################################################
+
 
        ## Modify infectivity on account of circumcised susceptible male partner
        ## browser()
@@ -314,6 +358,14 @@
                     ## which susceptible men are circumcised
        infectivity.transmittable.f <- infectivity.today[transmittable.f]
                     ## what are the infectivities of their female partners?
+
+       #######################################################################
+       ## 16Oct14
+          infectivity.transmittable.f[transmittable.f.known.sdp] <-
+            infectivity.today[transmittable.f.known.sdp]*(1-decline.ui)
+            
+       #######################################################################
+
        if (length(infectible.circumcised > 0)){
        infectivity.transmittable.f[infectible.circumcised] <-
          infectivity.transmittable.f[infectible.circumcised]*circum.mult
