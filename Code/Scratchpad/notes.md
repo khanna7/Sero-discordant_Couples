@@ -98,7 +98,8 @@
 ```
 ## Next steps  
    * Steps wrapped in function, tested wrapper function. Now., review scenario table. If new things need to be coded, code them. If not, assemble pieces to simulate interventions.    
-   * 16 Oct 14: separated "test&treat" from identification of primary SDP; coded test and treat; debugged test and treat; modified infecvitiy due to reduced UI in "transmission_d10_sdp.R". need to debug "transmission_d10_sdp.R". "assign.infectivity_d4.R" does not need change  
+   * 16 Oct 14: separated "test&treat" from identification of primary SDP; coded test and treat; debugged test and treat; modified infecvitiy due to reduced UI in "transmission_d10_sdp.R". need to debug "transmission_d10_sdp.R". "assign.infectivity_d4.R" does not need change    
+   * 17 Oct 14: Wrote and debugged wrapper function for transmission_d10_sdp. Wrote wrapper and unit test function for test and treat. Continue to debug function for SDP test and treat. Use unit test
    
    
 
