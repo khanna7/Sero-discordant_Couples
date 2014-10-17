@@ -16,7 +16,6 @@
 
 identify.sdp             <- function(nw,
                                     verbose,
-                                    sdp.coverage,
                                     time,
                                     ...
                                     ){
