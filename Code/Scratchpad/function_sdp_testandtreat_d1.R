@@ -54,9 +54,9 @@
      primary.sdp.check <- intersect(which(partner.cum.status == 1),
                                     which(primary.sdp == 1))
      primary.sdp.check <- intersect(primary.sdp.check,
-                                    which(rowSums(known.sdp) != 2)
+                                    which(known.sdp) != 1)
                                     ) #if a couple is already "known SDP",
-                                        #then test&treat routine does not apply
+                                      #then test&treat routine does not apply
 
   ## test-sdp 
      test.el <- matrix(0,

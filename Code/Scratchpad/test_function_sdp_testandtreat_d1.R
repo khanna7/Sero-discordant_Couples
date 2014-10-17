@@ -5,7 +5,7 @@
 ##############################################################
 ### Progression of versions
 ##############################################################
-### 7 Oct 2014: Test wrapper function
+### 17 Oct 2014: Test wrapper function
 ##############################################################
 
 ##############################################################
@@ -46,6 +46,8 @@
                                    sdp.testing.coverage,
                                    sdp.art.at.cd4=
                                    sdp.art.at.cd4,
+                                   sdp.art.coverage=
+                                   sdp.art.coverage,
                                    time=time
                                    )
 
