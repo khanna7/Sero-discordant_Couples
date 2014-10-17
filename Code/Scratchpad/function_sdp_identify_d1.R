@@ -14,7 +14,7 @@
           ## in ART status here
 ##############################################################
 
-identify.sdp.update.art <- function(nw,
+identify.sdp             <- function(nw,
                                     verbose,
                                     sdp.coverage,
                                     time,
