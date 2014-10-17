@@ -153,16 +153,14 @@
 
       transmission <-
   function(nw, verbose,
-           ## preg.mult, ## 23Oct13: Make this specific to pregnant women who are susc.
            preg.susc.mult,
            circum.mult,
-           scenario, # 13Aug13: Add these arguments
+           scenario, 
            baseline.art.coverage.rate,
            baseline.preg.coverage.rate,
-           given.dur.inf.by.age, #22Aug13: Vector of duraton of infection by age-groups
-                        # ages 15-24, 25-34, 25-44, 45 and above
-           eligible.cd4, #28Oct13: (d)
-           baseline.f.ges.visit, #28Oct13: (d) -- for pregnant women
+           given.dur.inf.by.age, 
+           eligible.cd4, 
+           baseline.f.ges.visit, 
            decline.ui, #16Oct14
            ...
            ) {
@@ -222,7 +220,7 @@
        #######################################################################
        ## 16Oct14
           transmittable.m.in.known.sdp <- nw.el[discordant.mpos.known.sdp,
-                                                1)
+                                                1]
        #######################################################################
 
        
@@ -345,7 +343,7 @@
        #######################################################################
        ## 16Oct14
           transmittable.f.in.known.sdp <- nw.el[discordant.fpos.known.sdp,
-                                                2)
+                                                2]
        #######################################################################
 
 
