@@ -219,7 +219,7 @@
 
        #######################################################################
        ## 16Oct14
-          transmittable.m.in.known.sdp <- nw.el[discordant.mpos.known.sdp,
+          transmittable.m.known.sdp <- nw.el[discordant.mpos.known.sdp,
                                                 1]
        #######################################################################
 
@@ -268,8 +268,8 @@
        ## transmissions.m <- rbinom(length(transmittable.m), 1,
        ##                           infectivity.today[transmittable.m])
 
-       transmissions.mtof.id <- which(infectivity.transmittable.m >=
-                                      transmit.prob.infectible.f)
+       transmissions.mtof.id <- which(infectivity.transmittable.m[transmittable.m] >=
+                                      transmit.prob.infectible.f)#17oct14- check here
        ## browser()
        newinf.f <- infectible.f[transmissions.mtof.id]
        ## 30 Jul 2013: Record infector IDs
@@ -342,7 +342,7 @@
 
        #######################################################################
        ## 16Oct14
-          transmittable.f.in.known.sdp <- nw.el[discordant.fpos.known.sdp,
+          transmittable.f.known.sdp <- nw.el[discordant.fpos.known.sdp,
                                                 2]
        #######################################################################
 
@@ -376,8 +376,8 @@
        ## transmissions.m <- rbinom(length(transmittable.m), 1,
        ##                           infectivity.today[transmittable.m])
 
-       transmissions.ftom.id <- which(infectivity.transmittable.f >=
-                                      transmit.prob.infectible.m)
+       transmissions.ftom.id <- which(infectivity.transmittable.f[transmittable.f] >=
+                                      transmit.prob.infectible.m) ##17oct14 -- check here
        newinf.m <- infectible.m[transmissions.ftom.id]
        ## 30Jul13: Record infector IDs
        newinf.m.infectorID <- transmittable.f[transmissions.ftom.id]
