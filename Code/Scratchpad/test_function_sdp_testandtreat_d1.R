@@ -35,6 +35,11 @@
       sdp.art.coverage = 1
       time=1041
 
+   ## Needed edge attributes
+      set.edge.attribute(nw, "primary.sdp", 1)
+
+##############################################################
+   ## Test function
       test.net <- testandtreat.sdp(nw=nw,
                                    verbose=verbose,
                                    sdp.testing.coverage=
