@@ -11,7 +11,6 @@
           *Identify SDPs* (new)   
            ```nw=nw```   
            ```verbose=TRUE```   
-           ```sdp.coverage=0.80```    
            ```time=time```   
           *Test and treat function* (new)   
             ```nw=nw```      
