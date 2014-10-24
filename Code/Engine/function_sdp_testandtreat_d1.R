@@ -55,7 +55,7 @@
                                     which(primary.sdp == 1))
      primary.sdp.check <- intersect(primary.sdp.check,
                                     which(known.sdp) != 1)
-                                    ) #if a couple is already "known SDP",
+                                      #if a couple is already "known SDP",
                                       #then test&treat routine does not apply
 
   ## test-sdp 
