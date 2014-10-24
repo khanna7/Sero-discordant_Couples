@@ -8,10 +8,10 @@
           - Primary SDP: ```set.edge.attribute(nw, "primary.sdp", 0) ```       
           - Known SDP:```set.edge.attribute(nw, "known.sdp", 0) ```      
   - [ ] Parameter files for Uganda and South Africa: With any new parameters for South Africa and Uganda   
-          *Test and treat function* (new)
-            ```nw=nw```
-            ```verbose=TRUE```      
-            ```sdp.testing.coverage=0.80```   
+          *Test and treat function* (new)   
+            ```nw=nw```      
+            ```verbose=TRUE```              
+            ```sdp.testing.coverage=0.80```      
             ```sdp.art.at.coverage=350```   
             ```time=time```   
           *Transmission function* (modified from before)      
