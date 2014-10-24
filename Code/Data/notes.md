@@ -7,7 +7,12 @@
         Edge attributes are:      
           - Primary SDP: ```set.edge.attribute(nw, "primary.sdp", 0) ```       
           - Known SDP:```set.edge.attribute(nw, "known.sdp", 0) ```      
-  - [ ] Parameter files for Uganda and South Africa: With any new parameters for South Africa and Uganda   
+  - [ ] Parameter files for Uganda and South Africa: With any new parameters for South Africa and Uganda
+          *Identify SDPs* (new)   
+           ```nw=nw```   
+           ```verbose=TRUE```   
+           ```sdp.coverage=0.80```    
+           ```time=time```   
           *Test and treat function* (new)   
             ```nw=nw```      
             ```verbose=TRUE```              
