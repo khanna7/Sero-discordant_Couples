@@ -3,6 +3,8 @@
 #####################################################
 
 ## 24 Oct 2014: Runs for Uganda with SDP intervention
+## removed control.MCMC.burnin() from simulate in timeloop --
+## not compatible with current version of statnet
 
 ## 28 Feb 2014: Was waiting for room on the cluster,
 ## and doing other things. Can simulate now. 
@@ -356,7 +358,7 @@
   ## SIMULATION-Related Files and Packages
 
       
-       load("burnin.21Feb_UG_phi004_newatts_run1.RData") #25Feb14
+       load("../Data/burnin.21Feb_UG_phi004_newatts_run1.RData") #25Feb14
 
        source("../Engine/common.functions_fieldingmortality_d9.R")
        source("../Engine/update.vital.dynamics_newinfected_entryage18_d13a.R") 
@@ -372,17 +374,25 @@
        source("../Engine/transmission_d10_sdp.R")
 
   ## Starting Network
-       source("../params_uganda_d3.R")
+       source("../Data/params_uganda_d3.R")
 #####################################################
 
 #####################################################
 ### Material for saving
 #############################################0########
 
-   date <- "28Feb_UG_bl_cp_run1"
+   date <- "24Oct_UG_sdp_trial_run1"
 
 #####################################################
 
+#####################################################
+### Add edge attributes to network object
+#############################################0########
+
+   set.edge.attribute(nw, "primary.sdp", 0)
+   set.edge.attribute(nw, "known.sdp", 0)
+
+#####################################################
 
 #####################################################
 ### Starting Network Objects
@@ -438,7 +448,8 @@ gc()
                  #start.time = time,
                  time.slices = 1,
                  #monitor = stats.form,
-                 control = control.simulate.network(MCMC.burnin=10000))
+                 #control = control.simulate.network(MCMC.burnin=10000)
+                       )
 
       cat("Entering transmission step at time", time,
           "of", timesteps, "\n")
@@ -559,20 +570,34 @@ gc()
                                  size.of.timestep=size.of.timestep, # 28May13
                                  )
  
+      ## New Functions to model HBHTC and interventions
+         ## Should have conditional to implement these steps periodically
+        
+         nw <- identify.sdp(nw=nw,
+                            verbose=TRUE,
+                            time=time)
+
+         nw <- testandtreat.sdp(nw=nw,
+                                verbose=TRUE,
+                                sdp.testing.coverage=sdp.testing.coverage,
+                                sdp.art.at.coverage=sdp.art.at.coverage,
+                                sdp.art.coverage=sdp.art.coverage,
+                                time=time)
+
       ## MODEL TRANSMISSION
-      nw <- assign.infectivity(nw, verbose=FALSE,
-                               min.chronic.infectivity.unadj=
-                               min.chronic.infectivity.unadj,
-                               num.sex.acts.per.timestep=
-                               num.sex.acts.per.timestep, #common.functions.d3"
-                               acute.mult=acute.mult,
-                               late.mult=late.mult,
-                               preg.mult=preg.mult,#10Jun13
-                               #30Jul13: Added arguments below
-                               acute.length=acute.length,
-                               chronic.length=chronic.length,
-                               late.length=late.length
-                               )
+         nw <- assign.infectivity(nw, verbose=FALSE,
+                                  min.chronic.infectivity.unadj=
+                                  min.chronic.infectivity.unadj,
+                                  num.sex.acts.per.timestep=
+                                  num.sex.acts.per.timestep, #common.functions.d3"
+                                  acute.mult=acute.mult,
+                                  late.mult=late.mult,
+                                  preg.mult=preg.mult,#10Jun13
+                                        #30Jul13: Added arguments below
+                                  acute.length=acute.length,
+                                  chronic.length=chronic.length,
+                                  late.length=late.length
+                                  )
         
       ## now model transmission of infection
         ##browser()
@@ -586,7 +611,8 @@ gc()
                            given.dur.inf.by.age=given.dur.inf.by.age, #22Aug2013,
                            eligible.cd4=eligible.cd4, #30Oct13
                            baseline.f.ges.visit=#0.1 #30Oct13
-                           baseline.f.ges.visit
+                           baseline.f.ges.visit,
+                           decline.ui=decline.ui
                            )
 
         z <- sapply(ls(), function(x) object.size(get(x))) #29Aug13: memory
