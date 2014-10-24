@@ -5,7 +5,8 @@
   - [ ] Uganda Burnin data: With relevant edge attributes added   
   - [ ] South African data: With relevant edge attributes added    
         Edge attributes are:      
-        ```set.edge.attribute(nw, "primary.sdp", 0) ```          
+          Primary SDP: ```set.edge.attribute(nw, "primary.sdp", 0) ```       
+          Known SDP:```set.edge.attribute(nw, "known.sdp", 0) ```      
   - [ ] Parameter files for Uganda and South Africa: With any new parameters for South Africa and Uganda    
   
        
