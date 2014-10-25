@@ -19,7 +19,7 @@
             ```nw=nw```      
             ```verbose=TRUE```              
             ```sdp.testing.coverage=0.80```      
-            ```sdp.art.at.coverage=350```   
+            ```sdp.art.at.cd4=350```   
             ```time=time```   
 <br>  
           *Transmission function* (modified from before)      
