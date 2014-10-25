@@ -39,6 +39,7 @@
      inf.status <- nw%v%"inf.status"
      cd4.count.today <- nw%v%"cd4.count.today"
      art.status <- nw%v%"art.status"
+     art.type <- nw%v%"art.type"
 
   ## Extract relevant edge attributes
      primary.sdp <- nw%e%"primary.sdp"
@@ -54,7 +55,7 @@
      primary.sdp.check <- intersect(which(partner.cum.status == 1),
                                     which(primary.sdp == 1))
      primary.sdp.check <- intersect(primary.sdp.check,
-                                    which(known.sdp) != 1)
+                                    which(known.sdp != 1))
                                       #if a couple is already "known SDP",
                                       #then test&treat routine does not apply
 
@@ -83,12 +84,17 @@
            if (art.status[pos.ind] != 1){
              art.status[pos.ind] <- rbinom(1, 1,
                                            sdp.art.coverage)
+             if (art.status[pos.ind] == 1){
+               art.type[pos.ind] = 1
+             } else{ (art.status[pos.ind] == NA)
+             }
            }
          }
        }
 
   ## Update vertex attributes
      nw%v%"art.status" <- art.status #16oct14
+     nw%v%"art.type" <- art.type #16oct14
 
   ## Update new edge attributes
      ## nw%e%"primary.sdp" <- primary.sdp
