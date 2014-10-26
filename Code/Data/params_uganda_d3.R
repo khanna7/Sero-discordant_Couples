@@ -443,5 +443,8 @@
      sdp.art.coverage=0.80
      sdp.art.at.cd4=350
      decline.ui=0.63
+     hbhtc.all.testing.coverage=0.80
+     hbhtc.all.cd4.at.art=350
+     hbhtc.all.art.coverage=0.76
      
      
