@@ -32,8 +32,8 @@
        
 
   ## Extract cross-sectional network
-     nw <- network.extract(nw, at=time,
-                           retain.all.vertices=TRUE)
+     ## nw <- network.extract(nw, at=time,
+     ##                       retain.all.vertices=TRUE)
      
   ## Extract relevant node attributes
      inf.status <- nw%v%"inf.status"
