@@ -6,6 +6,11 @@
 ##############################################################
 ### Progression of versions
 ##############################################################
+### 26 Oct 2014: We should not be extracting only cross-sectional network
+    ## at the top and calling it "nw." That changes the network object
+    ## "nw" that all processes are run on. Comment out extraction of
+    ## cross-sectional network at the top
+
 ### 17 Oct 2014: Wrapper function
 
 ### 16 Oct 2014: Test and treat SDP:
@@ -83,7 +88,7 @@
          if (cd4.count.today[pos.ind] <= sdp.art.at.cd4){
            if (art.status[pos.ind] != 1){
              coin.flip <- rbinom(1, 1, sdp.art.coverage)
-             art.status[pos.ind] <- coin.flip)
+             art.status[pos.ind] <- coin.flip
              if (coin.flip == 1){
                art.type[pos.ind] <- 1
              } 
