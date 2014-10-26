@@ -82,12 +82,11 @@
          pos.ind <- nw.el[known.sdp[i],pos.partner]
          if (cd4.count.today[pos.ind] <= sdp.art.at.cd4){
            if (art.status[pos.ind] != 1){
-             art.status[pos.ind] <- rbinom(1, 1,
-                                           sdp.art.coverage)
-             if (art.status[pos.ind] == 1){
-               art.type[pos.ind] = 1
-             } else{ (art.status[pos.ind] == NA)
-             }
+             coin.flip <- rbinom(1, 1, sdp.art.coverage)
+             art.status[pos.ind] <- coin.flip)
+             if (coin.flip == 1){
+               art.type[pos.ind] <- 1
+             } 
            }
          }
        }
