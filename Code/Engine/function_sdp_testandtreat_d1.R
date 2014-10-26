@@ -32,6 +32,9 @@
                                   sdp.art.at.cd4,
                                   sdp.art.coverage,
                                   time,
+                                  hbhtc.all.testing.coverage,
+                                  hbhtc.all.art.at.cd4,
+                                  hbhtc.all.art.coverage,
                                   ...
                                   ){
        
@@ -55,12 +58,31 @@
      status.el <- matrix((nw %v% "inf.status")[nw.el],
                           ncol = 2)
 
+ ############# TEST AND TREAT FOR ALL VIA HBHTC########################
+
+  ## Identify population size
+     pop.size <- network.size(nw)
+     
+  ## testing all
+     tested.and.artinit.today <- rbinom(n=pop.size, size=1,
+                                        prob=hbhtc.all.testing.coverage*hbhtc.all.art.coverage)
+
+  ## Treatment all    
+     tested.and.artinit.today.untreated <- intersect(which(tested.and.artinit.today == 1), which(art.status == 0))
+        ##art.status=0 is only for those with inf.status=1. For those who have inf.status=0,
+        ##art.status is NA.
+     art.status[tested.and.artinit.today.untreated] <- 1 #update attribute
+     art.type[tested.and.artinit.today.untreated]   <- 1 #update attribute
+
+     ## browser()
+     
+  ############# TEST and TREAT FOR SDP VIA HBHTC########################
   ## identify couples eligible for test-and-treat
      partner.cum.status <- rowSums(status.el)
      primary.sdp.check <- intersect(which(partner.cum.status == 1),
                                     which(primary.sdp == 1))
-     primary.sdp.check <- intersect(primary.sdp.check,
-                                    which(known.sdp != 1))
+     ## primary.sdp.check <- intersect(primary.sdp.check,
+     ##                                which(known.sdp != 1))
                                       #if a couple is already "known SDP",
                                       #then test&treat routine does not apply
 
