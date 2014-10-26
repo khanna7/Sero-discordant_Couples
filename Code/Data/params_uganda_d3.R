@@ -440,6 +440,7 @@
 
   ## New parameters for SDP
      sdp.testing.coverage=0.80
+     sdp.art.coverage=0.80
      sdp.art.at.cd4=350
      decline.ui=0.63
      
