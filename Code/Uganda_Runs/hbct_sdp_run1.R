@@ -580,7 +580,7 @@ gc()
          nw <- testandtreat.sdp(nw=nw,
                                 verbose=TRUE,
                                 sdp.testing.coverage=sdp.testing.coverage,
-                                sdp.art.at.coverage=sdp.art.at.coverage,
+                                sdp.art.at.cd4=sdp.art.at.cd4,
                                 sdp.art.coverage=sdp.art.coverage,
                                 time=time)
 
