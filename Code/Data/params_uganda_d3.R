@@ -439,12 +439,12 @@
      late.mult.holling <- 7
 
   ## New parameters for SDP
-     sdp.testing.coverage=0.80
-     sdp.art.coverage=0.80
-     sdp.art.at.cd4=350
+     hbhtc.testing.coverage=0.80
+     known.sdp.art.coverage=58.4/100
+     notknown.sdp.art.coverage=58.4/100
+     known.sdp.art.at.cd4=350
+     notknown.sdp.art.at.cd4=350
+
      decline.ui=0.63
-     hbhtc.all.testing.coverage=0.80
-     hbhtc.all.cd4.at.art=350
-     hbhtc.all.art.coverage=0.76
      
      
