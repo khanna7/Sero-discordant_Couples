@@ -55,11 +55,14 @@ identify.sdp             <- function(nw,
          nw.el.form.diss <- matrix(nw.el.activity,
                                    nrow=length(nw.el.activity)/2,
                                    ncol=2, byrow=TRUE)
+       
          not.inf <- which(nw.el.form.diss[,2] != Inf) ##CHECK"24Oct2014
 
          if (length(not.inf) > 0){
+           nw.el <- nw.el[-not.inf,]
            nw.el.form.diss <- nw.el.form.diss[-not.inf,]
          }
+       
          nw.el.form.diss <- cbind(nw.el, nw.el.form.diss)
 
        ## for longest partnership of HIV-infected partners
