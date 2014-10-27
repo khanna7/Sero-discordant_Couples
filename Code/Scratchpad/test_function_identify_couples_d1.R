@@ -25,23 +25,24 @@
       ## ug.nw <- network.extract(nw, at=1041)
 
    ## Source function
-      source("function_identify_couples_d1.R")
+      source("function_sdp_identify_d1.R")
 ##############################################################
 
 ##############################################################
 
    ## Test
       ## Simulate
-         set.seed(7)
-         test.net <- identify.sdp.update.art(nw=nw,
-                                             verbose=TRUE,
-                                             sdp.coverage=1,
-                                             time=1042
-                                             )
+         ##set.seed(7)
+         debug(identify.sdp)
+         test.net <- identify.sdp(nw=nw,
+                                  verbose=TRUE,
+                                  ##sdp.coverage=1,
+                                  time=1042
+                                  )
 
-      ## Compare results
-         (nw%v%"art.status")[24148] # before sdp intervention
-         (test.net%v%"art.status")[24148] # after sdp intervenion
+      ## Results
+         length(which(test.net%e%"primary.sdp" == 1))
+         network.size(test.net)
 ##############################################################
 
 

@@ -34,14 +34,11 @@
       nw = network.extract(nw, at=1042)
       verbose = TRUE
 
-      sdp.testing.coverage = 1
-      sdp.art.at.cd4 = 350
-      sdp.art.coverage = 1
-      time=1041
-
-      hbhtc.all.testing.coverage=0.80
-      hbhtc.all.art.at.cd4=1000
-      hbhtc.all.art.coverage=0.764
+      hbhtc.testing.coverage=1
+      known.sdp.art.coverage=0.5
+      notknown.sdp.art.coverage=0.5
+      known.sdp.art.at.cd4=1000
+      notknown.sdp.art.at.cd4=1000
 
    ## Needed edge attributes
       set.edge.attribute(nw, "primary.sdp", 1)
@@ -50,19 +47,17 @@
    ## Test function
       test.net <- testandtreat.sdp(nw=nw,
                                    verbose=verbose,
-                                   sdp.testing.coverage=
-                                   sdp.testing.coverage,
-                                   sdp.art.at.cd4=
-                                   sdp.art.at.cd4,
-                                   sdp.art.coverage=
-                                   sdp.art.coverage,
+                                   hbhtc.testing.coverage=
+                                   hbhtc.testing.coverage,
+                                   known.sdp.art.coverage=
+                                   known.sdp.art.coverage,
+                                   notknown.sdp.art.coverage=
+                                   notknown.sdp.art.coverage,
+                                   known.sdp.art.at.cd4=
+                                   known.sdp.art.at.cd4,
+                                   notknown.sdp.art.at.cd4=
+                                   notknown.sdp.art.at.cd4,
                                    time=time,
-                                   hbhtc.all.testing.coverage=
-                                   hbhtc.all.testing.coverage,
-                                   hbhtc.all.art.at.cd4=
-                                   hbhtc.all.art.at.cd4,
-                                   hbhtc.all.art.coverage=
-                                   hbhtc.all.art.coverage
                                    )
       nw%v%"art.status"
 ##############################################################
