@@ -26,7 +26,7 @@
       load("../../Burnin_Data/burnin.21Feb_UG_phi004_newatts_run1.RData")
 
    ## Source function
-      source("function_sdp_testandtreat_d1.R")
+      source("../Engine/function_sdp_testandtreat_d1.R")
 ##############################################################
 
 ##############################################################
@@ -59,5 +59,5 @@
                                    notknown.sdp.art.at.cd4,
                                    time=time,
                                    )
-      nw%v%"art.status"
+   nw%v%"art.status"
 ##############################################################

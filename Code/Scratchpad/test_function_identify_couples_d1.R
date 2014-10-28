@@ -25,7 +25,7 @@
       ## ug.nw <- network.extract(nw, at=1041)
 
    ## Source function
-      source("function_sdp_identify_d1.R")
+      source("../Engine/function_sdp_identify_d1.R")
 ##############################################################
 
 ##############################################################
@@ -33,7 +33,7 @@
    ## Test
       ## Simulate
          ##set.seed(7)
-         debug(identify.sdp)
+         ## undebug(identify.sdp)
          test.net <- identify.sdp(nw=nw,
                                   verbose=TRUE,
                                   ##sdp.coverage=1,

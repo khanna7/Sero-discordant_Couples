@@ -1,0 +1,25 @@
+load("nw24Oct_UG_sdp_trial_run1.RData")
+nw <- as.network(nw)
+library(statnet)
+nw <- as.network(nw)
+length(which(nw%e%"known.sdp" == 1))
+length(which(nw%e%"primary.sdp" == 1))
+all(nw%e%"known.sdp") %in% nw%e%"primary.sdp")
+all((nw%e%"known.sdp") %in% (nw%e%"primary.sdp"))
+which((nw%e%"known.sdp") %in% (nw%e%"primary.sdp"))
+length(which((nw%e%"known.sdp") %in% (nw%e%"primary.sdp")))
+get.vertex.attributes(nw)
+list.vertex.attributes(nw)
+which(nw%v%"time.of.art.initiation" > 1042)
+new.treated <- which(nw%v%"time.of.art.initiation" > 1042)
+(nw%v%"art.status")[new.treated]
+(nw%v%"art.type")[new.treated]
+(nw%v%"inf.status")[new.treated]
+(nw%v%"inf.time")[new.treated]
+(nw%v%"time.of.infection")[new.treated]
+net.1041 <- network.extract(nw, at=1041)
+net.1041
+list.edge.attributes(nw)
+nw%e%"active"
+nw%e%"na"
+savehistory("debug_sdp_interv")

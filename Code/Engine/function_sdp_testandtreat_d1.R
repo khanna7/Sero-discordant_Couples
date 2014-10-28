@@ -21,7 +21,7 @@
           ## if positive partner's CD4 meets criteria, then
              ## positive partner initiates ART w/ coverage rate
 
-    ## c. check below if "primary.sdp.check" should be intersected
+    ## c. check below if "longest.ptshp.check" should be intersected
     ## with "known.sdp"
 ##############################################################
 
@@ -47,7 +47,7 @@
      art.type <- nw%v%"art.type"
 
   ## Extract relevant edge attributes
-     primary.sdp <- nw%e%"primary.sdp"
+     longest.ptshp <- nw%e%"longest.ptshp"
      known.sdp <- nw%e%"known.sdp"
 
   ## Extract edgelist, convert to matrix form
@@ -72,8 +72,8 @@
      
   ## identify couples eligible for test-and-treat
      partner.cum.status <- rowSums(status.el)
-     primary.sdp.check <- intersect(which(partner.cum.status == 1),
-                                    which(primary.sdp == 1))
+     longest.ptshp.check <- intersect(which(partner.cum.status == 1),
+                                    which(longest.ptshp == 1))
 
   ## test-sdp 
      test.el <- matrix(0,
@@ -137,7 +137,7 @@
      nw%v%"art.type" <- art.type #16oct14
 
   ## Update new edge attributes
-     ## nw%e%"primary.sdp" <- primary.sdp
+     ## nw%e%"longest.ptshp" <- longest.ptshp
      set.edge.attribute(nw, "known.sdp",
                         1, e=known.sdp)
                         

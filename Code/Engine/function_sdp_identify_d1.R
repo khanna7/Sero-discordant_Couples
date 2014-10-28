@@ -14,114 +14,94 @@
           ## in ART status here
 ##############################################################
 
-identify.sdp             <- function(nw,
+identify.longest.ptshp           <- function(nw,
                                     verbose,
                                     time,
                                     ...
                                     ){
 
-    ## Edgelist from cross-sectional network
-       nw.el <- as.edgelist(network.extract(nw, at = time,
-                                            retain.all.vertices = T))
+       ## nw <- as.network(nw)  
+       ## Complete network
+       nw.act.df <- get.edge.activity(nw, e=seq_along(nw$mel),
+                                         as.spellList=TRUE)
 
-    ## Relevant attributes of actors
+       extant.edges <- (which(nw.act.df$terminus.censored == TRUE))
+
+       nw.act.extedge.df <- nw.act.df[extant.edges,]
+       nw.el <- cbind(nw.act.extedge.df$head,
+                      nw.act.extedge.df$tail)
+       
+       ## Cross-sectional network
+       nw.xn <- network.extract(nw, at=time, retain.all.vertices=T)
+       nw.xn.el <- as.edgelist(nw.xn)
+
+       el.to.consider <- intersect(
+                           which(nw.act.extedge.df$tail %in% nw.xn.el[,1]),
+                           which(nw.act.extedge.df$head %in% nw.xn.el[,2])
+                           )
+
+       ## remove extraneous edges that appear in "edge.activity" list
+       nw.el.to.consider <- nw.el[el.to.consider,]
+       nw.act.extedge.to.consider <- nw.act.extedge.df[el.to.consider,]
+
+       ## Relevant attributes of actors
        status.el <- matrix((nw %v% "inf.status")[nw.el], ncol = 2)
        inf.status <- nw %v% "inf.status"
        art.status <- nw%v%"art.status"
 
-    ## Relevant attributes of edges
-       primary.sdp <- nw%e%"primary.sdp"
+       ## Relevant attributes of edges
+       longest.ptshp <- nw%e%"longest.ptshp"
 
-    ## Male partner HIV+
-       discordant.mpos <- intersect(which(status.el[, 1] == 1),
-                                    which(status.el[, 2] == 0))
-       transmittable.m <- nw.el[discordant.mpos, 1]
-       infectible.f <- nw.el[discordant.mpos, 2]
 
-    ## Female partner HIV+
-       discordant.fpos <- intersect(which(status.el[, 2] == 1),
-                                    which(status.el[, 1] == 0)
-                                    )
-       transmittable.f <- nw.el[discordant.fpos, 2]
-       infectible.m    <- nw.el[discordant.fpos, 1]
+       ## Find edgeIDs of edges thare are sole partnership of the actors
+
+       ## unique.male <- which(!duplicated(nw.act.extedge.to.consider$tail))
+       ## unique.female <- which(!duplicated(nw.act.extedge.to.consider$head))
+
+       ## unique.pt <- intersect(unique.male, unique.female)
+       ## raw.unique.pt.edge.id <- nw.act.extedge.to.consider$edge.id[unique.pt]
+       ##               ## edgeID's start at 4000, for whatever reason
+                               
+       ## nw <- set.edge.attribute(nw, attrname="longest.ptshp",
+       ##                          1,
+       ##                          raw.unique.pt.edge.id)
        
-      ## now obtain formation, dissolution and
-      ## duration from "egde.activity," 
-         nw.el.activity <- unlist(get.edge.activity(
-                                    network.extract(nw,
-                                                    at = time,
-                                                    retain.all.vertices = T))
-                                  )
-         nw.el.form.diss <- matrix(nw.el.activity,
-                                   nrow=length(nw.el.activity)/2,
-                                   ncol=2, byrow=TRUE)
-       
-         not.inf <- which(nw.el.form.diss[,2] != Inf) ##CHECK"24Oct2014
+       ## For edges that belong to actors with multiple partnerships,
+       ## find shortest partnership
 
-         if (length(not.inf) > 0){
-           nw.el <- nw.el[-not.inf,]
-           nw.el.form.diss <- nw.el.form.diss[-not.inf,]
-         }
-       
-         nw.el.form.diss <- cbind(nw.el, nw.el.form.diss)
+        ## edge id's of primary partnerships from male perspective
+           male.ptshp <- split(nw.act.extedge.to.consider,
+                               f=nw.act.extedge.to.consider$tail)
 
-       ## for longest partnership of HIV-infected partners
-       ## set "primary.sdp"=1
-       
-          ## where infected partner is male
-          for(i in 1:length(transmittable.m)){
-            edgeID <- which(nw.el.form.diss[,1] ==
-                            transmittable.m[i])
-            sht.pt <- which(rank(nw.el.form.diss[edgeID,3],
-                                ties.method='min') <= 1)
-                      ## ptshp with lowest formation time
-                      ## (all ptshps have diss. time of Inf)
-           sht.pt <- min(sht.pt)
-           cat(sht.pt, " ", edgeID[sht.pt], " ", "\n"
-               )
-           primary.sdp[edgeID[sht.pt]] <- 1
-           ## update ART status
-         ##   coin.toss <- runif(1, 0, 1) ##16OCt14: comment out
-         ##   if (verbose){
-         ##     cat("Coin-toss for men is ", coin.toss, "\n")
-         ##   }
-         ##   if (coin.toss <= sdp.coverage){
-         ##   art.status[nw.el[edgeID[sht.pt], 1]] <- 1
-         ##   if (verbose){
-         ##     cat("ART-statuses to be updated are ",
-         ##         (nw.el[edgeID[sht.pt], 1]), "\n")
-         ##   }
-         ## }
-         } 
+           primary.from.male <- rep(NA, length(male.ptshp))
 
-          ## where infected partner is female
-          for(i in 1:length(transmittable.f)){
-            edgeID <- which(nw.el.form.diss[,2] ==
-                            transmittable.f[i])
-            sht.pt <- which(rank(nw.el.form.diss[edgeID,3],
-                                 ties.method='min') <= 1)
-            sht.pt <- min(sht.pt)
-            cat(sht.pt, " ", edgeID[sht.pt], " ", "\n"
-                )
-            primary.sdp[edgeID[sht.pt]] <- 1
-            ## update ART status
-         ##    coin.toss <- runif(1, 0, 1) ##16Oct14: comment out
-         ##    if (verbose){
-         ##      cat("Coin-toss for women is ", coin.toss, "\n")
-         ##    }
-         ##    if (coin.toss <= sdp.coverage){
-         ##      art.status[nw.el[edgeID[sht.pt], 2]] <- 1
-         ##      if (verbose){
-         ##        cat("ART-statuses to be updated are ",
-         ##            (nw.el[edgeID[sht.pt], 2]), "\n")
-         ##      }
-         ## }
-         }
+           for (i in 1:length(primary.from.male)){
+             df <- male.ptshp[[i]]
+             ranking <- rank(df$onset, ties.method='min')
+             primary.from.male[i] <- df[min(pmin(ranking)),]$edge.id
+           }
 
-       ## update relevant attributes 
-       ## nw%v%"art.status" <- art.status ##16OCt14:comment out
-       nw%e%"primary.sdp" <- primary.sdp
+        ## edge id's of primary partnerships from female perspective
+           female.ptshp <- split(nw.act.extedge.to.consider,
+                               f=nw.act.extedge.to.consider$head)
+
+           primary.from.female <- rep(NA, length(female.ptshp))
+
+           for (i in 1:length(primary.from.female)){
+             df <- female.ptshp[[i]]
+             ranking <- rank(df$onset, ties.method='min')
+             primary.from.female[i] <- df[min(pmin(ranking)),]$edge.id
+           }
+
+       ## update relevant attributes xn network
+          nw <- set.edge.attribute(nw, attrname="longest.ptshp",
+                                   1,
+                                   primary.from.male)
+
+          nw <- set.edge.attribute(nw, attrname="longest.ptshp",
+                                   1,
+                                   primary.from.female)
        
        ## return network object
-       return(nw)
+          return(nw)
      }
