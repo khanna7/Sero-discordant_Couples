@@ -69,7 +69,7 @@ identify.longest.ptshp           <- function(nw,
        ## For edges that belong to actors with multiple partnerships,
        ## find shortest partnership
 
-        ## edge id's of primary partnerships from male perspective
+        ## edge id's of longest partnerships from male perspective
            male.ptshp <- split(nw.act.extedge.to.consider,
                                f=nw.act.extedge.to.consider$tail)
 
@@ -81,7 +81,7 @@ identify.longest.ptshp           <- function(nw,
              primary.from.male[i] <- df[min(pmin(ranking)),]$edge.id
            }
 
-        ## edge id's of primary partnerships from female perspective
+        ## edge id's of longest partnerships from female perspective
            female.ptshp <- split(nw.act.extedge.to.consider,
                                f=nw.act.extedge.to.consider$head)
 
