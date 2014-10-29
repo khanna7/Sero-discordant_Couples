@@ -383,7 +383,7 @@
 ### Material for saving
 #############################################0########
 
-   date <- "28Oct_UG_sdp_trial_run1"
+   date <- "29Oct_UG_sdp_trial_run2"
 
 #####################################################
 
@@ -392,7 +392,7 @@
 #############################################0########
 
    set.edge.attribute(nw, "longest.ptshp", 0)
-   set.edge.attribute(nw, "known.sdp", 0)
+   set.edge.attribute(nw, "known.longest.sdp", 0)
 
 #####################################################
 

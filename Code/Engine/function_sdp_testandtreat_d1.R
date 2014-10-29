@@ -6,6 +6,10 @@
 ##############################################################
 ### Progression of versions
 ##############################################################
+## 29 Oct 2014:
+    ## Restrict known SDPs to stable partnerships
+    ##  Change name of "known.sdp" to "known.longest.sdp"
+
 ### 26 Oct 2014:
     ## a. We should not be extracting only cross-sectional network
     ## at the top and calling it "nw." That changes the network object
@@ -32,9 +36,7 @@
                                   verbose,
                                   hbhtc.testing.coverage,
                                   known.sdp.art.coverage,
-                                  notknown.sdp.art.coverage,
                                   known.sdp.art.at.cd4,
-                                  notknown.sdp.art.at.cd4,
                                   time,
                                   ...
                                   ){
@@ -48,7 +50,8 @@
 
   ## Extract relevant edge attributes
      longest.ptshp <- nw%e%"longest.ptshp"
-     known.sdp <- nw%e%"known.sdp"
+     ##known.longest.sdp <- nw%e%"known.longest.sdp"
+     longest.ptshp.id <- which(longest.ptshp == 1)
 
   ## Extract edgelist, convert to matrix form
      nw.el <- as.edgelist(nw, retain.all.vertices = T)
@@ -89,12 +92,13 @@
      known.sdp <- intersect(which(rowSums(status.el) == 1),
                             which(rowSums(test.el) == 2))
 
+     known.longest.sdp <- intersect(longest.ptshp.id, known.sdp)
 
-   ## treat known-sdp
-     if(length(known.sdp) > 0){
-       for (i in 1:length(known.sdp)){
-         pos.partner <- which(status.el[known.sdp[i],] == 1)
-         pos.ind <- nw.el[known.sdp[i],pos.partner]
+     ## treat known-longest-sdp
+     if(length(known.longest.sdp) > 0){
+       for (i in 1:length(known.longest.sdp)){
+         pos.partner <- which(status.el[known.longest.sdp[i],] == 1)
+         pos.ind <- nw.el[known.longest.sdp[i],pos.partner]
          if (cd4.count.today[pos.ind] <= known.sdp.art.at.cd4){
            if (art.status[pos.ind] != 1){
              coin.flip <- rbinom(1, 1, known.sdp.art.coverage)
@@ -107,22 +111,26 @@
        }
      }
 
+
+     ##known.longest.sdp <- longest.known.sdp
 ###########################################################
   ############# TREAT  NOT-KNOWN-SDP VIA HBHTC
  ###########################################################
    ## browser()
      
-   notknown.sdp <- intersect(which(rowSums(status.el) == 1),
-                               which(rowSums(test.el) == 1))
+   ## notknown.sdp <- intersect(which(rowSums(status.el) == 1),
+   ##                             which(rowSums(test.el) == 1))
+
+     not.known.longest.sdp <- known.sdp[-c(known.longest.sdp)]
      
     ## treat not-known-sdp
-       if (length(notknown.sdp) > 0){
-       for (i in 1:length(notknown.sdp)){
-         pos.partner <- which(status.el[notknown.sdp[i],] == 1)
-         pos.ind <- nw.el[notknown.sdp[i],pos.partner]
-         if (cd4.count.today[pos.ind] <= notknown.sdp.art.at.cd4){
+       if (length(not.known.longest.sdp) > 0){
+       for (i in 1:length(not.known.longest.sdp)){
+         pos.partner <- which(status.el[not.known.longest.sdp[i],] == 1)
+         pos.ind <- nw.el[not.known.longest.sdp[i],pos.partner]
+         if (cd4.count.today[pos.ind] <= known.sdp.art.at.cd4){
            if (art.status[pos.ind] != 1){
-             coin.flip <- rbinom(1, 1, notknown.sdp.art.coverage)
+             coin.flip <- rbinom(1, 1, known.sdp.art.coverage)
              art.status[pos.ind] <- coin.flip
              if (coin.flip == 1){
                art.type[pos.ind] <- 1
@@ -138,8 +146,8 @@
 
   ## Update new edge attributes
      ## nw%e%"longest.ptshp" <- longest.ptshp
-     set.edge.attribute(nw, "known.sdp",
-                        1, e=known.sdp)
+     set.edge.attribute(nw, "known.longest.sdp",
+                        1, e=known.longest.sdp)
                         
      return(nw)
    }

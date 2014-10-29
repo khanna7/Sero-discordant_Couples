@@ -389,8 +389,8 @@
 ### Add edge attributes to network object
 #############################################0########
 
-   set.edge.attribute(nw, "primary.sdp", 0)
-   set.edge.attribute(nw, "known.sdp", 0)
+   set.edge.attribute(nw, "longest.ptshp", 0)
+   set.edge.attribute(nw, "known.longest.sdp", 0)
 
 #####################################################
 

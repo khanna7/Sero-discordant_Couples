@@ -1,3 +1,5 @@
+## 29 Oct 2014: Change name of "known.sdp" to "known.longest.sdp"
+
 ## 16 Oct 2014: Add change in frequency of unprotected intercourse
 ## for people in SDP:
    ## a. add parameter "decline.ui"
@@ -195,8 +197,8 @@
        art.type <- nw%v%"art.type"
 
        ## needed edge attributes #16Oct14
-          known.sdp <- nw%e%"known.sdp"
-          known.sdp.true <- which(known.sdp == 1)
+          known.longest.sdp <- nw%e%"known.longest.sdp"
+          known.longest.sdp.true <- which(known.longest.sdp == 1)
 
        ## Transmission from male to female
        ## browser()
@@ -210,8 +212,8 @@
 
        #######################################################################
        ## 16Oct14
-          discordant.mpos.known.sdp <- intersect(discordant.mpos,
-                                                 known.sdp.true)
+          discordant.mpos.known.longest.sdp <- intersect(discordant.mpos,
+                                                 known.longest.sdp.true)
        #######################################################################
        
        transmittable.m <- nw.el[discordant.mpos, 1]
@@ -219,7 +221,7 @@
 
        #######################################################################
        ## 16Oct14
-          transmittable.m.known.sdp <- nw.el[discordant.mpos.known.sdp,
+          transmittable.m.known.longest.sdp <- nw.el[discordant.mpos.known.longest.sdp,
                                                 1]
        #######################################################################
 
@@ -247,8 +249,8 @@
 
        #######################################################################
        ## 16Oct14
-          infectivity.transmittable.m[transmittable.m.known.sdp] <-
-            infectivity.today[transmittable.m.known.sdp]*(1-decline.ui)
+          infectivity.transmittable.m[transmittable.m.known.longest.sdp] <-
+            infectivity.today[transmittable.m.known.longest.sdp]*(1-decline.ui)
             
        #######################################################################
 
@@ -330,8 +332,8 @@
 
        #######################################################################
        ## 16Oct14
-          discordant.fpos.known.sdp <- intersect(discordant.fpos,
-                                                 known.sdp.true)
+          discordant.fpos.known.longest.sdp <- intersect(discordant.fpos,
+                                                 known.longest.sdp.true)
        #######################################################################
 
        ## i thought steve's commented "discordant.fpos" had confusing 
@@ -342,7 +344,7 @@
 
        #######################################################################
        ## 16Oct14
-          transmittable.f.known.sdp <- nw.el[discordant.fpos.known.sdp,
+          transmittable.f.known.longest.sdp <- nw.el[discordant.fpos.known.longest.sdp,
                                                 2]
        #######################################################################
 
@@ -359,8 +361,8 @@
 
        #######################################################################
        ## 16Oct14
-          infectivity.transmittable.f[transmittable.f.known.sdp] <-
-            infectivity.today[transmittable.f.known.sdp]*(1-decline.ui)
+          infectivity.transmittable.f[transmittable.f.known.longest.sdp] <-
+            infectivity.today[transmittable.f.known.longest.sdp]*(1-decline.ui)
             
        #######################################################################
 
