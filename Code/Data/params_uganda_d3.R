@@ -443,6 +443,9 @@
      known.sdp.art.coverage=58.4/100
      known.sdp.art.at.cd4=350
 
+     not.known.sdp.art.coverage=58.4/100
+     not.known.sdp.art.at.cd4=350
+
      decline.ui=0.63
      
      
