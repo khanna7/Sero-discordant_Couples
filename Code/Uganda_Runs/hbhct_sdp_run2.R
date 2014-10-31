@@ -383,7 +383,7 @@
 ### Material for saving
 #############################################0########
 
-   date <- "29Oct_UG_sdp_trial_run2"
+   date <- "31Oct_UG_sdp_trial_run1"
 
 #####################################################
 
@@ -454,7 +454,7 @@ gc()
                        )
 
       cat("Entering transmission step at time", time,
-          "of", timesteps, "\n")
+          "of", time2, "\n")
 
       cat("Total number of edges is ", network.edgecount(nw), "\n") #15Aug13
       cat("Number of alive edges is ", network.edgecount(network.extract(nw, at=time)),
@@ -581,11 +581,16 @@ gc()
 
          nw <- testandtreat.sdp(nw=nw,
                                 verbose=TRUE,
-                                hbhtc.testing.coverage=hbhtc.testing.coverage,
-                                known.sdp.art.coverage=known.sdp.art.coverage,
-                                notknown.sdp.art.coverage=notknown.sdp.art.coverage,
-                                known.sdp.art.at.cd4=known.sdp.art.at.cd4,
-                                notknown.sdp.art.at.cd4=notknown.sdp.art.at.cd4,
+                                hbhtc.testing.coverage=
+                                hbhtc.testing.coverage,
+                                known.sdp.art.coverage=
+                                known.sdp.art.coverage,
+                                known.sdp.art.at.cd4=
+                                known.sdp.art.at.cd4,
+                                not.known.sdp.art.coverage=
+                                not.known.sdp.art.coverage,
+                                not.known.sdp.art.at.cd4=
+                                not.known.sdp.art.at.cd4
                                 time=time)
 
       ## MODEL TRANSMISSION
@@ -648,7 +653,7 @@ gc()
 
       # cat("Memory size is ", memory.size(), ".\n", sep="")
 
-      cat("Finished timestep ",time," of ",timesteps,".\n",sep="")
+      cat("Finished timestep ",time," of ",time2,".\n",sep="")
       cat("\n")
 
     }
