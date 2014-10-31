@@ -37,6 +37,8 @@
                                   hbhtc.testing.coverage,
                                   known.sdp.art.coverage,
                                   known.sdp.art.at.cd4,
+                                  not.known.sdp.art.coverage,
+                                  not.known.sdp.art.at.cd4,
                                   time,
                                   ...
                                   ){
@@ -118,19 +120,19 @@
  ###########################################################
    ## browser()
      
-   ## notknown.sdp <- intersect(which(rowSums(status.el) == 1),
-   ##                             which(rowSums(test.el) == 1))
+    ## notknown.sdp <- intersect(which(rowSums(status.el) == 1),
+    ##                           which(rowSums(test.el) == 1))
 
-     not.known.longest.sdp <- known.sdp[-c(known.longest.sdp)]
+    not.known.longest.sdp <- known.sdp[-c(known.longest.sdp)]
      
     ## treat not-known-sdp
        if (length(not.known.longest.sdp) > 0){
        for (i in 1:length(not.known.longest.sdp)){
          pos.partner <- which(status.el[not.known.longest.sdp[i],] == 1)
          pos.ind <- nw.el[not.known.longest.sdp[i],pos.partner]
-         if (cd4.count.today[pos.ind] <= known.sdp.art.at.cd4){
+         if (cd4.count.today[pos.ind] <= not.known.sdp.art.at.cd4){
            if (art.status[pos.ind] != 1){
-             coin.flip <- rbinom(1, 1, known.sdp.art.coverage)
+             coin.flip <- rbinom(1, 1, not.known.sdp.art.coverage)
              art.status[pos.ind] <- coin.flip
              if (coin.flip == 1){
                art.type[pos.ind] <- 1
