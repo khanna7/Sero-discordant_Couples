@@ -406,6 +406,7 @@
   ## Other Needed Parameters for timesteps
      time1 <- 1042
      time2 <- (time1-1)+260
+     hbhtc.interval <- 26*3 #3-year intervals
 
   ## Record initial network statistics
       nw.start <- network.copy(nw)
@@ -574,24 +575,27 @@ gc()
  
       ## New Functions to model HBHTC and interventions
          ## Should have conditional to implement these steps periodically
-        
-         nw <- identify.longest.ptshp(nw=nw,
-                                      verbose=TRUE,
-                                      time=time)
 
-         nw <- testandtreat.sdp(nw=nw,
-                                verbose=TRUE,
-                                hbhtc.testing.coverage=
-                                hbhtc.testing.coverage,
-                                known.sdp.art.coverage=
-                                known.sdp.art.coverage,
-                                known.sdp.art.at.cd4=
-                                known.sdp.art.at.cd4,
-                                not.known.sdp.art.coverage=
-                                not.known.sdp.art.coverage,
-                                not.known.sdp.art.at.cd4=
-                                not.known.sdp.art.at.cd4
-                                time=time)
+         if ( (time1-time)%% (hbhtc.interv) == 0){ #HBHTC at certain times
+
+           nw <- identify.longest.ptshp(nw=nw,
+                                        verbose=TRUE,
+                                        time=time)
+
+           nw <- testandtreat.sdp(nw=nw,
+                                  verbose=TRUE,
+                                  hbhtc.testing.coverage=
+                                  hbhtc.testing.coverage,
+                                  known.sdp.art.coverage=
+                                  known.sdp.art.coverage,
+                                  known.sdp.art.at.cd4=
+                                  known.sdp.art.at.cd4,
+                                  not.known.sdp.art.coverage=
+                                  not.known.sdp.art.coverage,
+                                  not.known.sdp.art.at.cd4=
+                                  not.known.sdp.art.at.cd4,
+                                  time=time)
+         }
 
       ## MODEL TRANSMISSION
          nw <- assign.infectivity(nw, verbose=FALSE,
