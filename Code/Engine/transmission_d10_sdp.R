@@ -222,7 +222,7 @@
        #######################################################################
        ## 16Oct14
           transmittable.m.known.longest.sdp <- nw.el[discordant.mpos.known.longest.sdp,
-                                                1]
+                                                     1]
        #######################################################################
 
        
@@ -249,9 +249,10 @@
 
        #######################################################################
        ## 16Oct14
-          infectivity.transmittable.m[transmittable.m.known.longest.sdp] <-
-            infectivity.today[transmittable.m.known.longest.sdp]*(1-decline.ui)
-            
+          if (length(transmittable.m.known.longest.sdp) > 0){
+            infectivity.transmittable.m[transmittable.m.known.longest.sdp] <-
+              infectivity.today[transmittable.m.known.longest.sdp]*(1-decline.ui)
+          }
        #######################################################################
 
        
@@ -361,9 +362,10 @@
 
        #######################################################################
        ## 16Oct14
-          infectivity.transmittable.f[transmittable.f.known.longest.sdp] <-
-            infectivity.today[transmittable.f.known.longest.sdp]*(1-decline.ui)
-            
+          if (length(transmittable.f.known.longest.sdp) > 0){
+            infectivity.transmittable.f[transmittable.f.known.longest.sdp] <-
+              infectivity.today[transmittable.f.known.longest.sdp]*(1-decline.ui)
+          }
        #######################################################################
 
        if (length(infectible.circumcised > 0)){
