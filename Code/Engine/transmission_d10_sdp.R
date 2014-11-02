@@ -197,33 +197,38 @@
        art.type <- nw%v%"art.type"
 
        ## needed edge attributes #16Oct14
-          known.longest.sdp <- nw%e%"known.longest.sdp"
+          nw.xn <- network.extract(nw, at = time,
+                                   retain.all.vertices = T)      
+          known.longest.sdp <- nw.xn%e%"known.longest.sdp"
           known.longest.sdp.true <- which(known.longest.sdp == 1)
 
        ## Transmission from male to female
-       ## browser()
-       
-       ## discordant.mpos <- status.el[ ,1]==1 & status.el[ ,2]==0
-       discordant.mpos <- intersect(which(status.el[, 1] == 1),
-                                    which(status.el[, 2] == 0))
-       ## i thought steve's commented "discordant.mpos" had confusing 
-       ## output -- instead of giving a list of
-       ## rownumbers, it gave a list with True and false -- but that is okay.
+          discordant.mpos <- intersect(which(status.el[, 1] == 1),
+                                       which(status.el[, 2] == 0))
 
-       #######################################################################
-       ## 16Oct14
+       ## find longest discordant partnership with HIV-positive male
           discordant.mpos.known.longest.sdp <- intersect(discordant.mpos,
-                                                 known.longest.sdp.true)
-       #######################################################################
-       
-       transmittable.m <- nw.el[discordant.mpos, 1]
-       infectible.f <- nw.el[discordant.mpos, 2]
+                                                         known.longest.sdp.true)
 
-       #######################################################################
-       ## 16Oct14
+          transmittable.m <- nw.el[discordant.mpos, 1]
+          infectible.f <- nw.el[discordant.mpos, 2]
+
           transmittable.m.known.longest.sdp <- nw.el[discordant.mpos.known.longest.sdp,
                                                      1]
-       #######################################################################
+
+          infectivity.transmittable.m <- infectivity.today[transmittable.m]
+
+          male.in.kn.long.sdp <- intersect(transmittable.m.known.longest.sdp, 
+                                           nw.el[,1])
+
+          edge.male.in.kn.long.sdp <- which(transmittable.m %in% male.in.kn.long.sdp)
+       
+          if (length(transmittable.m.known.longest.sdp) > 0){
+            infectivity.transmittable.m[edge.male.in.kn.long.sdp] <-
+              infectivity.transmittable.m[edge.male.in.kn.long.sdp]*
+                (1-decline.ui)
+          }
+
 
        
        ## 10 June 2013: Incorporate effect of susceptible ``infectible''
@@ -234,26 +239,9 @@
        
        curr.pregnant <- which(curr.pregnancy.status == 1)
 
-       ## The 3 commented lines below can probably go
-
-       ## preg.infectible.f.id <- which(curr.pregnant %in% infectible.f)
-       ## preg.infectible.f <- curr.pregnant[preg.infectible.f.id]
-       ## preg.infectible.f.in.rel <- intersect(preg.infectible.f, nw.el[,2])
-
        infectible.preg <- which(infectible.f %in% curr.pregnant)
                     ## which susceptible women are pregnant
                     ## initially vector called "b"
-
-       infectivity.transmittable.m <- infectivity.today[transmittable.m]
-                    ## what are the infectivities of their male partners?
-
-       #######################################################################
-       ## 16Oct14
-          if (length(transmittable.m.known.longest.sdp) > 0){
-            infectivity.transmittable.m[transmittable.m.known.longest.sdp] <-
-              infectivity.today[transmittable.m.known.longest.sdp]*(1-decline.ui)
-          }
-       #######################################################################
 
        
        if (length(infectible.preg) > 0){
@@ -343,30 +331,29 @@
        transmittable.f <- nw.el[discordant.fpos, 2]
        infectible.m    <- nw.el[discordant.fpos, 1]
 
-       #######################################################################
-       ## 16Oct14
-          transmittable.f.known.longest.sdp <- nw.el[discordant.fpos.known.longest.sdp,
-                                                2]
-       #######################################################################
+       ## find longest discordant partnership with HIV-positive male       
+       transmittable.f.known.longest.sdp <- nw.el[discordant.fpos.known.longest.sdp,
+                                                  2]
 
+       infectivity.transmittable.f <- infectivity.today[transmittable.f]
+
+       female.in.kn.long.sdp <- intersect(transmittable.f.known.longest.sdp, 
+                                        nw.el[,2])
+       
+       edge.female.in.kn.long.sdp <- which(transmittable.f %in% female.in.kn.long.sdp)
+
+       if (length(transmittable.f.known.longest.sdp) > 0){
+            infectivity.transmittable.f[edge.female.in.kn.long.sdp] <-
+              infectivity.transmittable.f[edge.female.in.kn.long.sdp]*(1-decline.ui)
+          }
 
        ## Modify infectivity on account of circumcised susceptible male partner
        ## browser()
        circumcised <- which(circum.status == 1)
        infectible.circumcised <- which(infectible.m %in% circumcised)
-                    ## 30Jul13: Caught mistake here -- should be "infectible.m"
-                    ## instead i had "infectible.f"
-                    ## which susceptible men are circumcised
        infectivity.transmittable.f <- infectivity.today[transmittable.f]
                     ## what are the infectivities of their female partners?
 
-       #######################################################################
-       ## 16Oct14
-          if (length(transmittable.f.known.longest.sdp) > 0){
-            infectivity.transmittable.f[transmittable.f.known.longest.sdp] <-
-              infectivity.today[transmittable.f.known.longest.sdp]*(1-decline.ui)
-          }
-       #######################################################################
 
        if (length(infectible.circumcised > 0)){
        infectivity.transmittable.f[infectible.circumcised] <-
