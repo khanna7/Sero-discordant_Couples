@@ -460,6 +460,15 @@
      preg.susc.mult <- 1.7
 
   ## New parameters for SDP
-     sdp.testing.coverage=0.80
-     sdp.art.at.coverage=350
+     hbhtc.testing.coverage=0.80
+     known.sdp.art.coverage=58.4/100
+     known.sdp.art.at.cd4=350
+
+     not.known.sdp.art.coverage=58.4/100
+     not.known.sdp.art.at.cd4=350
+
      decline.ui=0.63
+     
+     known.sdp.art.coverage.high=0.90
+     known.sdp.art.at.cd4.high=1e3
+
