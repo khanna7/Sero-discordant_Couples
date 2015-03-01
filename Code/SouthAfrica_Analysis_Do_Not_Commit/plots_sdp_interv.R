@@ -5,9 +5,7 @@
 ##########################################
 ### Progression of versions
 ##########################################
-## 1 Mar 2015: combine scenario IV results here
-
-## 7 Nov 2014: plot runs for uganda
+## 9 Nov 2014: plot runs for South Africa
 ##########################################
 
 rm(list=ls())
@@ -23,8 +21,8 @@ rm(list=ls())
 
  ## Baseline
    for (i in 1:n.sim){
-     assign(paste("ug.bl.cp.run.",i, sep=""),
-            read.csv(paste("~/Projects/Home-Based/PMTCT/Code/Development2/Uganda_Runs/28Feb_UG_bl_cp_run", i,
+     assign(paste("za.bl.cp.run.",i, sep=""),
+            read.csv(paste("~/Projects/Home-Based/PMTCT/Code/Development2/SouthAfrica_Development_Runs/27May_UG_baseline_cp_run", i,
                            ".prev.inc.data.csv",
                            sep=""),
                      sep=" ", header=FALSE)
@@ -33,8 +31,8 @@ rm(list=ls())
 
   ## SDP current coverage
      for (i in 1:n.sim){
-       assign(paste("ug.sdp.curr.run.",i, sep=""),
-              read.csv(paste("../Uganda_Runs_Do_Not_Commit/2Nov_UG_sdp_curr_run", i,
+       assign(paste("za.sdp.curr.run.",i, sep=""),
+              read.csv(paste("../SouthAfrica_Runs_Do_Not_Commit/9Nov_ZA_sdp_curr_run", i,
                              ".prev.inc.data.csv",
                              sep=""),
                        sep=" ", header=FALSE)
@@ -43,18 +41,8 @@ rm(list=ls())
 
   ## SDP high coverage
      for (i in 1:n.sim){
-       assign(paste("ug.sdp.high.run.",i, sep=""),
-              read.csv(paste("../Uganda_Runs_Do_Not_Commit/2Nov_UG_sdp_high_run", i,
-                             ".prev.inc.data.csv",
-                             sep=""),
-                       sep=" ", header=FALSE)
-              )
-     }                    
-
-  ## SDP high coverage
-     for (i in 1:n.sim){
-       assign(paste("ug.sdp.scenarioIV.run.",i, sep=""),
-              read.csv(paste("../Uganda_Runs_Do_Not_Commit/28Feb_UG_sdp_scenarioIV_run", i,
+       assign(paste("za.sdp.high.run.",i, sep=""),
+              read.csv(paste("../SouthAfrica_Runs_Do_Not_Commit/9Nov_ZA_sdp_high_run", i,
                              ".prev.inc.data.csv",
                              sep=""),
                        sep=" ", header=FALSE)
@@ -68,7 +56,7 @@ rm(list=ls())
   ## Baseline
      mean.inci.bl.cp <- matrix(NA, ncol=n.sim, nrow=260)
      for (i in 1:n.sim){ 
-       data <- get(paste("ug.bl.cp.run.",i, sep=""))
+       data <- get(paste("za.bl.cp.run.",i, sep=""))
        mean.inci.bl.cp[,i] <- (data[,6]/(data[,2]-data[,7])) 
      }
 
@@ -82,15 +70,8 @@ rm(list=ls())
   ## SDP high
      mean.inci.sdp.high <- matrix(NA, ncol=n.sim, nrow=260)
      for (i in 1:n.sim){ 
-       data <- get(paste("ug.sdp.high.run.",i, sep=""))
+       data <- get(paste("za.sdp.high.run.",i, sep=""))
        mean.inci.sdp.high[,i] <- (data[,6]/(data[,2]-data[,7])) 
-     }
-
-  ## SDP scenario IV model testing
-     mean.inci.sdp.scenarioIV <- matrix(NA, ncol=n.sim, nrow=260)
-     for (i in 1:n.sim){ 
-       data <- get(paste("ug.sdp.scenarioIV.run.",i, sep=""))
-       mean.inci.sdp.scenarioIV[,i] <- (data[,6]/(data[,2]-data[,7])) 
      }
 
 ##########################################
@@ -135,41 +116,22 @@ rm(list=ls())
                       sd))*(26*100))/sqrt(n.sim)) ##30Jun14
 
 
-     ug.inc.data <- cbind(
+     za.inc.data <- cbind(
                       bl.cp.mean, bl.cp.lowci, bl.cp.upci,
                       sdp.curr.mean, sdp.curr.lowci, sdp.curr.upci,
                       sdp.high.mean, sdp.high.lowci, sdp.high.upci)
 
-     ## Scenario IV model testing
-     sdp.scenarioIV <- apply(mean.inci.sdp.scenarioIV, 1, mean)
-
-     sdp.scenarioIV <- split(sdp.scenarioIV, ceiling(seq_along(sdp.scenarioIV)/26))
-     sdp.scenarioIV.mean <- unlist(lapply(sdp.scenarioIV, mean))*26*100
-     sdp.scenarioIV.lowci <- (sdp.scenarioIV.mean)-((qt(0.975, df=n.sim-1)*unlist(lapply(sdp.scenarioIV,
-                                                     sd))*(26*100))/sqrt(n.sim)) 
-     sdp.scenarioIV.upci <- (sdp.scenarioIV.mean)+((qt(0.975, df=n.sim-1)*unlist(lapply(sdp.scenarioIV,
-                      sd))*(26*100))/sqrt(n.sim)) ##30Jun14
 
 
-     ug.inc.data <- cbind(
-                      bl.cp.mean, bl.cp.lowci, bl.cp.upci,
-                      sdp.curr.mean, sdp.curr.lowci, sdp.curr.upci,
-                      sdp.high.mean, sdp.high.lowci, sdp.high.upci,
-                      sdp.scenarioIV.mean, sdp.scenarioIV.lowci, sdp.scenarioIV.upci
-                      )
-
-
-
-     colnames(ug.inc.data) <-
+     colnames(za.inc.data) <-
        c("Baseline.Curr.Mean", "Baseline.Curr.LowCI", "Baseline.Curr.HighCI",
          "SDP.Curr.Mean", "SDP.Curr.LowCI", "SDP.Curr.HighCI",
-         "SDP.High.Mean", "SDP.High.LowCI", "SDP.High.HighCI",
-         "SDP.ScenarioIV.Mean", "SDP.ScenarioIV.LowCI", "SDP.ScenarioIV.HighCI")
+         "SDP.High.Mean", "SDP.High.LowCI", "SDP.High.HighCI")
 
 ##########################################
 
 ##########################################
 ### Save object
 ##########################################
-  save.image(file="ug_sdp_inc_comp_wci.RData")
+  save.image(file="za_sdp_inc_comp_wci.RData")
 ##########################################
