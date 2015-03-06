@@ -51,7 +51,7 @@ rm(list=ls())
               )
      }                    
 
-  ## SDP high coverage
+  ## SDP Scenario IV
      for (i in 1:n.sim){
        assign(paste("ug.sdp.scenarioIV.run.",i, sep=""),
               read.csv(paste("../Uganda_Runs_Do_Not_Commit/28Feb_UG_sdp_scenarioIV_run", i,
