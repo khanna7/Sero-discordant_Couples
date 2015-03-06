@@ -110,7 +110,6 @@
                       ggtitle("South Africa")+
                       theme(legend.position=c(0.5, 0.1),
                             legend.background=element_rect(fill="grey90"))
-
 ##########################################
 ### Save plot pdf
 ##########################################
@@ -118,4 +117,3 @@
   pdf(file="za_sdp_inc.pdf")
   inc.plot.title.2
   dev.off()
-
