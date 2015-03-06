@@ -51,8 +51,18 @@ rm(list=ls())
 
   ## Scenario IV: Model testing
      for (i in 1:n.sim){
-       assign(paste("ug.sdp.scenarioIV.run.",i, sep=""),
+       assign(paste("za.sdp.scenarioIV.run.",i, sep=""),
               read.csv(paste("../SouthAfrica_Runs_Do_Not_Commit/28Feb_ZA_sdp_scenarioIV_run", i,
+                             ".prev.inc.data.csv",
+                             sep=""),
+                       sep=" ", header=FALSE)
+              )
+     }                    
+
+  ## Scenario IV: Model testing + reduced recruitment prevalence
+     for (i in 1:n.sim){
+       assign(paste("za.sdp.scenarioIV.red.rec.prev.run.",i, sep=""),
+              read.csv(paste("../SouthAfrica_Runs_Do_Not_Commit/5Mar_ZA_sdp_scenarioIV_reduced_rec_prev_run", i,
                              ".prev.inc.data.csv",
                              sep=""),
                        sep=" ", header=FALSE)
@@ -74,7 +84,7 @@ rm(list=ls())
   ## SDP curr
      mean.inci.sdp.curr <- matrix(NA, ncol=n.sim, nrow=260)
      for (i in 1:n.sim){ 
-       data <- get(paste("ug.sdp.curr.run.",i, sep=""))
+       data <- get(paste("za.sdp.curr.run.",i, sep=""))
        mean.inci.sdp.curr[,i] <- (data[,6]/(data[,2]-data[,7])) 
      }
 
@@ -88,8 +98,15 @@ rm(list=ls())
   ## SDP scenario IV model testing
      mean.inci.sdp.scenarioIV <- matrix(NA, ncol=n.sim, nrow=260)
      for (i in 1:n.sim){ 
-       data <- get(paste("ug.sdp.scenarioIV.run.",i, sep=""))
+       data <- get(paste("za.sdp.scenarioIV.run.",i, sep=""))
        mean.inci.sdp.scenarioIV[,i] <- (data[,6]/(data[,2]-data[,7])) 
+     }
+
+  ## SDP scenario IV model testing + reduced recruitment prevalence
+     mean.inci.sdp.scenarioIV.red.rec.prev <- matrix(NA, ncol=n.sim, nrow=260)
+     for (i in 1:n.sim){ 
+       data <- get(paste("za.sdp.scenarioIV.red.rec.prev.run.",i, sep=""))
+       mean.inci.sdp.scenarioIV.red.rec.prev[,i] <- (data[,6]/(data[,2]-data[,7])) 
      }
 
 ##########################################
@@ -145,19 +162,34 @@ rm(list=ls())
      sdp.scenarioIV.upci <- (sdp.scenarioIV.mean)+((qt(0.975, df=n.sim-1)*unlist(lapply(sdp.scenarioIV,
                       sd))*(26*100))/sqrt(n.sim)) ##30Jun14
 
+     ## Scenario IV model testing
+     sdp.scenarioIV.red.rec.prev <- apply(mean.inci.sdp.scenarioIV.red.rec.prev, 1, mean)
 
+     sdp.scenarioIV.red.rec.prev <- split(sdp.scenarioIV.red.rec.prev, ceiling(seq_along(sdp.scenarioIV.red.rec.prev)/26))
+     sdp.scenarioIV.red.rec.prev.mean <- unlist(lapply(sdp.scenarioIV.red.rec.prev, mean))*26*100
+     sdp.scenarioIV.red.rec.prev.lowci <- (sdp.scenarioIV.red.rec.prev.mean)-((qt(0.975, df=n.sim-1)*unlist(lapply(sdp.scenarioIV.red.rec.prev,
+                                                     sd))*(26*100))/sqrt(n.sim)) 
+     sdp.scenarioIV.red.rec.prev.upci <- (sdp.scenarioIV.red.rec.prev.mean)+((qt(0.975, df=n.sim-1)*unlist(lapply(sdp.scenarioIV.red.rec.prev,
+                      sd))*(26*100))/sqrt(n.sim)) ##30Jun14
+
+
+     ## Combine
      za.inc.data <- cbind(
                       bl.cp.mean, bl.cp.lowci, bl.cp.upci,
                       sdp.curr.mean, sdp.curr.lowci, sdp.curr.upci,
                       sdp.high.mean, sdp.high.lowci, sdp.high.upci,
-                      sdp.scenarioIV.mean, sdp.scenarioIV.lowci, sdp.scenarioIV.upci)
+                      sdp.scenarioIV.mean, sdp.scenarioIV.lowci, sdp.scenarioIV.upci,
+                      sdp.scenarioIV.red.rec.prev.mean, sdp.scenarioIV.red.rec.prev.lowci, sdp.scenarioIV.red.rec.prev.upci)
 
 
      colnames(za.inc.data) <-
        c("Baseline.Curr.Mean", "Baseline.Curr.LowCI", "Baseline.Curr.HighCI",
          "SDP.Curr.Mean", "SDP.Curr.LowCI", "SDP.Curr.HighCI",
          "SDP.High.Mean", "SDP.High.LowCI", "SDP.High.HighCI",
-         "SDP.ScenarioIV.Mean", "SDP.ScenarioIV.LowCI", "SDP.ScenarioIV.HighCI")
+         "SDP.ScenarioIV.Mean", "SDP.ScenarioIV.LowCI", "SDP.ScenarioIV.HighCI",
+         "SDP.ScenarioIV.red.rec.prev.Mean",
+                                             "SDP.ScenarioIV.red.rec.prev.LowCI",
+                                             "SDP.ScenarioIV.red.rec.prev.HighCI")
 
 ##########################################
 

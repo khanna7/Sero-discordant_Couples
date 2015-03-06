@@ -22,7 +22,7 @@
   ## Start at same 0
   zero.inc <- 2.313
     ## from ("/homes/khanna7/Projects/Home-Based/PMTCT/Code/Development2/SouthAfrica_Development_Runs/plots_annualinc_samezero_forjustin.R
-  za.inc.zero <- c(0, rep(c(zero.inc, zero.inc, zero.inc), 4))
+  za.inc.zero <- c(0, rep(c(zero.inc, zero.inc, zero.inc), 5))
     ## upper and lower bound of zero will be the same here
   za.inc.df <- rbind(za.inc.zero, za.inc.df)
 ##########################################
@@ -32,10 +32,11 @@
 ##########################################
 
   ## With legend
-  cols <- c("No SDP Interv."="black",
-            "Low"="blue",
-            "High"="green",
-            "ScnIV-Test"="red")
+  cols <- c("0. No SDP Interv."="black",
+            "1. Low"="blue",
+            "2. High"="green",
+            "3. ScnIV-Test"="red",
+            "4. ScnIV-Test.red.rec.prev"="brown")
 
   cols <- rev(cols)
 
@@ -49,8 +50,12 @@
   geom_point(aes(y=za.inc.df$SDP.High.Mean, color="High"))+
   geom_line(aes(y=za.inc.df$SDP.ScenarioIV.Mean, color="ScnIV-Test"))+
   geom_point(aes(y=za.inc.df$SDP.ScenarioIV.Mean, color="ScnIV-Test"))+
+  geom_line(aes(y=za.inc.df$SDP.ScenarioIV.red.rec.prev.Mean,
+                color="ScnIV-Test.red.rec.prev"))+
+  geom_point(aes(y=za.inc.df$SDP.ScenarioIV.red.rec.prev.Mean,
+                 color="ScnIV-Test.red.rec.prev"))
 
-  scale_colour_manual(name="SDP Intervention Coverage",values=cols)
+  scale_colour_manual(name="SDP Intervnection Coverage",values=cols)
 
   inc.plot.x.2 <- inc.plot.2+scale_x_continuous(breaks=c(0, 1, 4, 7, 10))+
                 theme(axis.text.x=element_text(face='bold', size=12))
@@ -65,7 +70,8 @@
                                     ymin=za.inc.df$Baseline.Curr.LowCI,
                                     linetype=2,
                                     alpha=0.5,
-                                    width=0.25)+
+                                    width=0.25,
+                                    color="black")+
                                 geom_errorbar(
                                 aes(x=c(0:10)),
                                     ymax=za.inc.df$SDP.Curr.HighCI,
@@ -73,7 +79,7 @@
                                     linetype=2,
                                     alpha=0.5,
                                     width=0.25,
-                                    color="green")+
+                                    color="blue")+
                                   geom_errorbar(
                                 aes(x=c(0:10)),
                                     ymax=za.inc.df$SDP.High.HighCI,
@@ -89,7 +95,16 @@
                                     linetype=2,
                                     alpha=0.5,
                                     width=0.25,
-                                    color="red")
+                                    color="red")+
+                                    geom_errorbar(
+                                aes(x=c(0:10)),
+                                    ymax=za.inc.df$SDP.ScenarioIV.red.rec.prev.HighCI,
+                                    ymin=za.inc.df$SDP.ScenarioIV.red.rec.prev.LowCI,
+                                    linetype=2,
+                                    alpha=0.5,
+                                    width=0.25,
+                                    color="brown")
+
   
   inc.plot.title.2 <- inc.plot.err.2+
                       ggtitle("South Africa")+
