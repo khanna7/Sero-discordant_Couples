@@ -22,7 +22,7 @@
   ## Start at same 0
   zero.inc <- 2.313
     ## from ("/homes/khanna7/Projects/Home-Based/PMTCT/Code/Development2/SouthAfrica_Development_Runs/plots_annualinc_samezero_forjustin.R
-  za.inc.zero <- c(0, rep(c(zero.inc, zero.inc, zero.inc), 3))
+  za.inc.zero <- c(0, rep(c(zero.inc, zero.inc, zero.inc), 4))
     ## upper and lower bound of zero will be the same here
   za.inc.df <- rbind(za.inc.zero, za.inc.df)
 ##########################################
@@ -34,7 +34,9 @@
   ## With legend
   cols <- c("No SDP Interv."="black",
             "Low"="blue",
-            "High"="green")
+            "High"="green",
+            "ScnIV-Test"="red")
+
   cols <- rev(cols)
 
   inc.plot.2 <-
@@ -45,6 +47,9 @@
   geom_point(aes(y=za.inc.df$SDP.Curr.Mean, color="Low"))+
   geom_line(aes(y=za.inc.df$SDP.High.Mean, color="High"))+
   geom_point(aes(y=za.inc.df$SDP.High.Mean, color="High"))+
+  geom_line(aes(y=za.inc.df$SDP.ScenarioIV.Mean, color="ScnIV-Test"))+
+  geom_point(aes(y=za.inc.df$SDP.ScenarioIV.Mean, color="ScnIV-Test"))+
+
   scale_colour_manual(name="SDP Intervention Coverage",values=cols)
 
   inc.plot.x.2 <- inc.plot.2+scale_x_continuous(breaks=c(0, 1, 4, 7, 10))+
@@ -76,7 +81,16 @@
                                     linetype=2,
                                     alpha=0.5,
                                     width=0.25,
-                                    color="green")
+                                    color="green")+
+                                  geom_errorbar(
+                                aes(x=c(0:10)),
+                                    ymax=za.inc.df$SDP.ScenarioIV.HighCI,
+                                    ymin=za.inc.df$SDP.ScenarioIV.LowCI,
+                                    linetype=2,
+                                    alpha=0.5,
+                                    width=0.25,
+                                    color="red")
+  
   inc.plot.title.2 <- inc.plot.err.2+
                       ggtitle("South Africa")+
                       theme(legend.position=c(0.5, 0.1),
