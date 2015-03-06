@@ -24,7 +24,7 @@
   ## Start at same 0
   zero.inc <- 0.828
     ## from ("/homes/khanna7/Projects/Home-Based/PMTCT/Code/Development2/Uganda_Runs/plots_figures_inc_samezero.R")
-  ug.inc.zero <- c(0, rep(c(zero.inc, zero.inc, zero.inc), 4))
+  ug.inc.zero <- c(0, rep(c(zero.inc, zero.inc, zero.inc), 5))
     ## upper and lower bound of zero will be the same here
   ug.inc.df <- rbind(ug.inc.zero, ug.inc.df)
 ##########################################
@@ -37,7 +37,8 @@
   cols <- c("No SDP Interv."="black",
             "Low"="blue",
             "High"="green",
-            "ScnIV-Test"="red")
+            "ScnIV-Test"="red",
+            "ScnIV.Test.Red.Rec.Prev"="brown")
   cols <- rev(cols)
 
   inc.plot.2 <-
@@ -50,6 +51,8 @@
   geom_point(aes(y=ug.inc.df$SDP.High.Mean, color="High"))+
   geom_line(aes(y=ug.inc.df$SDP.ScenarioIV.Mean, color="ScnIV-Test"))+
   geom_point(aes(y=ug.inc.df$SDP.ScenarioIV.Mean, color="ScnIV-Test"))+
+  geom_line(aes(y=ug.inc.df$SDP.ScenarioIV.Mean, color="ScnIV-Test.Red.Rec.Prev"))+
+  geom_point(aes(y=ug.inc.df$SDP.ScenarioIV.Mean, color="ScnIV-Test.Red.Rec.Prev"))
   scale_colour_manual(name="SDP Intervention Coverage",values=cols)
 
   inc.plot.x.2 <- inc.plot.2+scale_x_continuous(breaks=c(0, 1, 4, 7, 10))+
@@ -65,7 +68,8 @@
                                     ymin=ug.inc.df$Baseline.Curr.LowCI,
                                     linetype=2,
                                     alpha=0.5,
-                                    width=0.25)+
+                                    width=0.25,
+                                    color="black")+
                                 geom_errorbar(
                                 aes(x=c(0:10)),
                                     ymax=ug.inc.df$SDP.Curr.HighCI,
@@ -89,7 +93,15 @@
                                     linetype=2,
                                     alpha=0.5,
                                     width=0.25,
-                                    color="red")
+                                    color="red")+
+                                    geom_errorbar(
+                                aes(x=c(0:10)),
+                                    ymax=ug.inc.df$SDP.ScenarioIV.Red.Rec.Prev.HighCI,
+                                    ymin=ug.inc.df$SDP.ScenarioIV.Red.Rec.Prev.LowCI,
+                                    linetype=2,
+                                    alpha=0.5,
+                                    width=0.25,
+                                    color="brown")
 
   inc.plot.title.2 <- inc.plot.err.2+
                       ggtitle("Uganda")+
