@@ -1,0 +1,88 @@
+
+  rm(list=ls())
+
+  library(ggplot2)
+  library(plyr)
+
+  load("za_sdp_inc_comp_wci.RData")
+
+  za.inc.df <- as.data.frame(za.inc.data)
+  za.inc.df <- cbind(1:10, za.inc.df)
+  colnames(za.inc.df)[1] <- "Year"
+
+  zero.inc <- 2.313
+  za.inc.zero <- c(0, rep(c(zero.inc, zero.inc, zero.inc), 5))
+  za.inc.df <- rbind(za.inc.zero, za.inc.df)
+
+  melted.data <- melt(za.inc.df, id="Year")
+
+  mean.start.id <- 1:11
+  melted.data.meanvalues <- melted.data[c(mean.start.id,
+                                          33+(mean.start.id),
+                                          (33*2)+(mean.start.id),
+                                          (33*3)+(mean.start.id),
+                                          (33*4)+(mean.start.id)
+                                          ),]
+
+  lb.start.id <- mean.start.id+11
+  lb.data <- melted.data[c(lb.start.id,
+                                          33+(lb.start.id),
+                                          (33*2)+(lb.start.id),
+                                          (33*3)+(lb.start.id),
+                                          (33*4)+(lb.start.id)
+                                          ),]
+
+  ub.start.id <- mean.start.id+22
+  ub.data <- melted.data[c(ub.start.id,
+                                          33+(ub.start.id),
+                                          (33*2)+(ub.start.id),
+                                          (33*3)+(ub.start.id),
+                                          (33*4)+(ub.start.id)
+                                          ),]
+
+  melted.data.mean.lb.ub <- cbind(melted.data.meanvalues,
+                                  lb.data$value,
+                                  ub.data$value)
+
+  colnames(melted.data.mean.lb.ub) <- c("Year",
+                                        "Scenario",
+                                        "Mean",
+                                        "LB",
+                                        "UB"
+                                        )
+
+
+
+  ## construct line plot
+
+  cols <- c("Baseline.Curr.Mean" = "black",
+            "SDP.Curr.Mean" = "blue",
+            "SDP.High.Mean" = "green",
+            "SDP.ScenarioIV.Mean" = "brown",
+            "SDP.ScenarioIV.red.rec.prev.Mean" = "a")
+
+  cols <- rev(cols)
+
+
+  line.plot <- 
+  ggplot(melted.data.mean.lb.ub, aes(color=Scenario,
+                                     x=Year,
+                                     y=Mean,
+                                     ymin=melted.data.mean.lb.ub$LB,
+                                     ymax=melted.data.mean.lb.ub$UB))+ #plot
+      geom_line()+ #mean-value-lines
+      geom_errorbar(width=0.25, linetype=2)+
+      ylim(0,3)+
+      scale_x_continuous(breaks=c(0, 1, 4, 7, 10))+
+      ylab("Incidence")+
+      theme(axis.text.y=element_text(face='bold'))+
+      theme(axis.text.x=element_text(face='bold'))
+
+  pdf(file="trial-sa.pdf")
+  line.plot
+  dev.off()
+
+
+
+      
+
