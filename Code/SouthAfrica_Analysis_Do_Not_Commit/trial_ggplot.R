@@ -56,13 +56,8 @@
 
   ## construct line plot
  
-  cols <- c("Baseline.Curr.Mean" = "black",
-            "SDP.Curr.Mean" = "blue",
-            "SDP.High.Mean" = "green",
-            "SDP.ScenarioIV.Mean" = "brown",
-            "SDP.ScenarioIV.red.rec.prev.Mean" = "a")
-
-  cols <- rev(cols)
+   cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73",
+                  "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
 
   line.plot <- 
@@ -70,8 +65,8 @@
                                      x=Year,
                                      y=Mean,
                                      ymin=melted.data.mean.lb.ub$LB,
-                                     ymax=melted.data.mean.lb.ub$UB),
-                                     scale_fill_hue(l=80)
+                                     ymax=melted.data.mean.lb.ub$UB)## ,
+                                     ## scale_fill_hue(l=80, c=45)
          )+ #plot
       geom_line()+ #mean-value-lines
       geom_errorbar(width=0.25, linetype=2)+
@@ -79,7 +74,8 @@
       scale_x_continuous(breaks=c(0, 1, 4, 7, 10))+
       ylab("Incidence")+
       theme(axis.text.y=element_text(face='bold'))+
-      theme(axis.text.x=element_text(face='bold'))
+      theme(axis.text.x=element_text(face='bold'))+
+      scale_color_manual(values=cbPalette[c(1:4, 6)])
 
    za.w.legend <- line.plot+ggtitle("South Africa")+
                   theme(legend.position=c(0.5,0.2),
