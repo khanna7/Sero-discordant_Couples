@@ -3,6 +3,7 @@
 
   library(ggplot2)
   library(plyr)
+  library(reshape2)
 
   load("za_sdp_inc_comp_wci.RData")
 
@@ -54,7 +55,7 @@
 
 
   ## construct line plot
-
+ 
   cols <- c("Baseline.Curr.Mean" = "black",
             "SDP.Curr.Mean" = "blue",
             "SDP.High.Mean" = "green",
@@ -78,8 +79,14 @@
       theme(axis.text.y=element_text(face='bold'))+
       theme(axis.text.x=element_text(face='bold'))
 
+   za.w.legend <- line.plot+ggtitle("South Africa")+
+                  theme(legend.position=c(0.5,0.2),
+                  legend.background = element_rect(fill="gray90")
+                  )
+
+
   pdf(file="trial-sa.pdf")
-  line.plot
+  za.w.legend
   dev.off()
 
 
