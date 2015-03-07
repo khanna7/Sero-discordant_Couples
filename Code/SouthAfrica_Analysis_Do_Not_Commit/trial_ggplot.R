@@ -70,7 +70,9 @@
                                      x=Year,
                                      y=Mean,
                                      ymin=melted.data.mean.lb.ub$LB,
-                                     ymax=melted.data.mean.lb.ub$UB))+ #plot
+                                     ymax=melted.data.mean.lb.ub$UB),
+                                     scale_fill_hue(l=80)
+         )+ #plot
       geom_line()+ #mean-value-lines
       geom_errorbar(width=0.25, linetype=2)+
       ylim(0,3)+
