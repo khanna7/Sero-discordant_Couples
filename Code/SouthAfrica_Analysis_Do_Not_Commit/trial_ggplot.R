@@ -41,7 +41,7 @@
                                           (33*2)+(ub.start.id),
                                           (33*3)+(ub.start.id),
                                           (33*4)+(ub.start.id),
-                                          (33*5)+(lb.start.id)
+                                          (33*5)+(ub.start.id)
                                           ),]
 
   melted.data.mean.lb.ub <- cbind(melted.data.meanvalues,
