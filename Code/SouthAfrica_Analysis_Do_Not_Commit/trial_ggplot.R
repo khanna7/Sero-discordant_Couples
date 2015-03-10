@@ -12,7 +12,7 @@
   colnames(za.inc.df)[1] <- "Year"
 
   zero.inc <- 2.313
-  za.inc.zero <- c(0, rep(c(zero.inc, zero.inc, zero.inc), 5))
+  za.inc.zero <- c(0, rep(c(zero.inc, zero.inc, zero.inc), 6))
   za.inc.df <- rbind(za.inc.zero, za.inc.df)
 
   melted.data <- melt(za.inc.df, id="Year")
@@ -22,7 +22,8 @@
                                           33+(mean.start.id),
                                           (33*2)+(mean.start.id),
                                           (33*3)+(mean.start.id),
-                                          (33*4)+(mean.start.id)
+                                          (33*4)+(mean.start.id),
+                                          (33*5)+(mean.start.id)
                                           ),]
 
   lb.start.id <- mean.start.id+11
@@ -30,7 +31,8 @@
                                           33+(lb.start.id),
                                           (33*2)+(lb.start.id),
                                           (33*3)+(lb.start.id),
-                                          (33*4)+(lb.start.id)
+                                          (33*4)+(lb.start.id),
+                                          (33*5)+(lb.start.id)
                                           ),]
 
   ub.start.id <- mean.start.id+22
@@ -38,7 +40,8 @@
                                           33+(ub.start.id),
                                           (33*2)+(ub.start.id),
                                           (33*3)+(ub.start.id),
-                                          (33*4)+(ub.start.id)
+                                          (33*4)+(ub.start.id),
+                                          (33*5)+(lb.start.id)
                                           ),]
 
   melted.data.mean.lb.ub <- cbind(melted.data.meanvalues,
@@ -59,23 +62,29 @@
    cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73",
                   "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
+# The palette with black:
+   cbPalette.black <- c("#000000", "#E69F00", "#56B4E9", "#009E73",
+                         "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
 
   line.plot <- 
   ggplot(melted.data.mean.lb.ub, aes(color=Scenario,
                                      x=Year,
                                      y=Mean,
-                                     ymin=melted.data.mean.lb.ub$LB,
-                                     ymax=melted.data.mean.lb.ub$UB)## ,
+                                     ymin=LB,
+                                     ymax=UB)## ,
                                      ## scale_fill_hue(l=80, c=45)
          )+ #plot
       geom_line()+ #mean-value-lines
       geom_errorbar(width=0.25, linetype=2)+
-      ylim(0,3)+
-      scale_x_continuous(breaks=c(0, 1, 4, 7, 10))+
+      scale_color_manual(values=cbPalette.black[1:6])+
+      ylim(0,3.2)     
+
+
+   format.axes <- line.plot+
       ylab("Incidence")+
       theme(axis.text.y=element_text(face='bold'))+
-      theme(axis.text.x=element_text(face='bold'))+
-      scale_color_manual(values=cbPalette[c(1:4, 6)])
+      theme(axis.text.x=element_text(face='bold'))
 
    za.w.legend <- line.plot+ggtitle("South Africa")+
                   theme(legend.position=c(0.5,0.2),
