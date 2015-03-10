@@ -84,7 +84,8 @@
    format.axes <- line.plot+
       ylab("Incidence")+
       theme(axis.text.y=element_text(face='bold'))+
-      theme(axis.text.x=element_text(face='bold'))
+      theme(axis.text.x=element_text(face='bold'))+
+      scale_x_continuous(breaks=c(0, 1, 4, 7, 10))
 
    ug.w.legend <- line.plot+ggtitle("Uganda")+
                   theme(legend.position=c(0.5,0.8),
