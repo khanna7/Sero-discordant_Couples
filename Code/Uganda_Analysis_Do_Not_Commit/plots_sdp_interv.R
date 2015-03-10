@@ -71,6 +71,26 @@ rm(list=ls())
               )
      }                    
 
+  ## SDP Current Coverage + no decline in UI
+     for (i in 1:n.sim){
+       assign(paste("ug.sdp.scenarioIV.red.rec.prev.run.",i, sep=""),
+              read.csv(paste("../Uganda_Runs_Do_Not_Commit/5Mar_UG_sdp_scenarioIV_reduced_rec_prev_run", i,
+                             ".prev.inc.data.csv",
+                             sep=""),
+                       sep=" ", header=FALSE)
+              )
+     }                    
+
+  ## No decline in UI + Scenario II
+     for (i in 1:n.sim){
+       assign(paste("ug.sdp.curr.nodecui.run.",i, sep=""),
+              read.csv(paste("../Uganda_Runs_Do_Not_Commit/8Mar_UG_sdp_curr_nodecui_run", i,
+                             ".prev.inc.data.csv",
+                             sep=""),
+                       sep=" ", header=FALSE)
+              )
+     }                    
+
 ##########################################
 ### Compute mean across ten years
 ##########################################
@@ -108,6 +128,13 @@ rm(list=ls())
      for (i in 1:n.sim){ 
        data <- get(paste("ug.sdp.scenarioIV.red.rec.prev.run.",i, sep=""))
        mean.inci.sdp.scenarioIV.red.rec.prev[,i] <- (data[,6]/(data[,2]-data[,7])) 
+     }
+
+  ## SDP current coverage + no decline in UI
+     mean.inci.sdp.curr.nodecui <- matrix(NA, ncol=n.sim, nrow=260)
+     for (i in 1:n.sim){ 
+       data <- get(paste("ug.sdp.curr.nodecui.run.",i, sep=""))
+       mean.inci.sdp.curr.nodecui[,i] <- (data[,6]/(data[,2]-data[,7])) 
      }
 
 ##########################################
@@ -177,6 +204,16 @@ rm(list=ls())
      sdp.scenarioIV.red.rec.prev.upci <- (sdp.scenarioIV.red.rec.prev.mean)+((qt(0.975, df=n.sim-1)*unlist(lapply(sdp.scenarioIV.red.rec.prev,
                       sd))*(26*100))/sqrt(n.sim)) ##30Jun14
 
+     ## SDP current coverage + no decline in UI
+     sdp.curr.nodecui <- apply(mean.inci.sdp.curr.nodecui, 1, mean)
+
+     sdp.curr.nodecui <- split(sdp.curr.nodecui, ceiling(seq_along(sdp.curr.nodecui)/26))
+     sdp.curr.nodecui.mean <- unlist(lapply(sdp.curr.nodecui, mean))*26*100
+     sdp.curr.nodecui.lowci <- (sdp.curr.nodecui.mean)-((qt(0.975, df=n.sim-1)*unlist(lapply(sdp.curr.nodecui,
+                                                     sd))*(26*100))/sqrt(n.sim)) 
+     sdp.curr.nodecui.upci <- (sdp.curr.nodecui.mean)+((qt(0.975, df=n.sim-1)*unlist(lapply(sdp.curr.nodecui,
+                      sd))*(26*100))/sqrt(n.sim)) ##30Jun14
+
 
      ## Combine
      ug.inc.data <- cbind(
@@ -186,10 +223,10 @@ rm(list=ls())
                       sdp.scenarioIV.mean, sdp.scenarioIV.lowci, sdp.scenarioIV.upci,
                       sdp.scenarioIV.red.rec.prev.mean,
                                                        sdp.scenarioIV.red.rec.prev.lowci,
-                                                       sdp.scenarioIV.red.rec.prev.upci
+                                                       sdp.scenarioIV.red.rec.prev.upci,
+                      sdp.curr.nodecui.mean, sdp.curr.nodecui.lowci,
+                                             sdp.curr.nodecui.upci
                       )
-
-
 
      colnames(ug.inc.data) <-
        c("Baseline.Curr.Mean", "Baseline.Curr.LowCI", "Baseline.Curr.HighCI",
@@ -198,7 +235,11 @@ rm(list=ls())
          "SDP.ScenarioIV.Mean", "SDP.ScenarioIV.LowCI", "SDP.ScenarioIV.HighCI",
          "SDP.ScenarioIV.Red.Rec.Prev.Mean",
                                            "SDP.ScenarioIV.Red.Rec.Prev.LowCI",
-                                           "SDP.ScenarioIV.Red.Rec.Prev.HighCI")
+                                           "SDP.ScenarioIV.Red.Rec.Prev.HighCI",
+         "SDP.Curr.Nodecui.Mean",
+                                 "SDP.Curr.Nodecui.LowCI",
+                                 "SDP.Curr.Nodecui.UpCI"
+         )
 
 ##########################################
 

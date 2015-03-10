@@ -14,6 +14,8 @@
 ### Load libraries and objects
 ##########################################
 
+  rm(list=ls())
+
   library(ggplot2)
   load("ug_sdp_inc_comp_wci.RData")
 
@@ -51,8 +53,11 @@
   geom_point(aes(y=ug.inc.df$SDP.High.Mean, color="High"))+
   geom_line(aes(y=ug.inc.df$SDP.ScenarioIV.Mean, color="ScnIV-Test"))+
   geom_point(aes(y=ug.inc.df$SDP.ScenarioIV.Mean, color="ScnIV-Test"))+
-  geom_line(aes(y=ug.inc.df$SDP.ScenarioIV.Mean, color="ScnIV-Test.Red.Rec.Prev"))+
-  geom_point(aes(y=ug.inc.df$SDP.ScenarioIV.Mean, color="ScnIV-Test.Red.Rec.Prev"))
+  geom_line(aes(y=ug.inc.df$SDP.ScenarioIV.Red.Rec.Prev.Mean,
+                color="ScnIV-Test.Red.Rec.Prev"))+
+  geom_point(aes(y=ug.inc.df$SDP.ScenarioIV.Red.Rec.Prev.Mean,
+                 color="ScnIV-Test.Red.Rec.Prev"))
+
   scale_colour_manual(name="SDP Intervention Coverage",values=cols)
 
   inc.plot.x.2 <- inc.plot.2+scale_x_continuous(breaks=c(0, 1, 4, 7, 10))+
