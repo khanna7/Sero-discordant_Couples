@@ -235,7 +235,7 @@
        out.mat <- matrix(0, nrow=nrow(t.data.matrix), ncol=3)
        
        out.mat[,1] <- apply(t.data.matrix, 1, mean)
-       out.ci <- apply(t.data.matrix, 1, sd)*qt(0.975, df=n.sim-1)
+       out.ci <- apply(t.data.matrix, 1, sd)*qt(0.975, df=n.sim-1)*1/sqrt(n.sim)
        out.mat[,2] <- out.mat[,1] - out.ci
        out.mat[,3] <- out.mat[,1] + out.ci
 
