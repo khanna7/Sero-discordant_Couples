@@ -218,6 +218,42 @@
 ##############################################
 
 ##############################################
+### Different scenarios
+##############################################
+
+  ## Compute means and confidence intervals
+     t.baseline.data <- t(baseline.data)
+     t.sdp.curr.data <- t(sdp.curr.data)
+     t.sdp.high.data <- t(sdp.high.data)
+     t.sdp.scenarioIV.data <- t(sdp.scenarioIV.data)
+     t.sdp.scenarioIV_reduced_rec_prev.data <- t(sdp.scenarioIV_reduced_rec_prev.data)
+     t.sdp.curr.vert.nodecui.data <- t(sdp.curr.vert.nodecui.data)
+
+  ## Write function to compute means and ci's of vertical infections
+     print.mean.ci <- function(t.data.matrix, ...){
+       n.sim <- ncol(t.data.matrix)
+       out.mat <- matrix(0, nrow=nrow(t.data.matrix), ncol=3)
+       
+       out.mat[,1] <- apply(t.data.matrix, 1, mean)
+       out.ci <- apply(t.data.matrix, 1, sd)*qt(0.975, df=n.sim-1)
+       out.mat[,2] <- out.mat[,1] - out.ci
+       out.mat[,3] <- out.mat[,1] + out.ci
+
+       return(out.mat)
+     }
+
+   ## Apply function to compute means and confidence intervals
+      t.baseline.data.ci <- print.mean.ci(t.baseline.data)
+      t.sdp.curr.data.ci <- print.mean.ci(t.sdp.curr.data)
+      t.sdp.high.data.ci <- print.mean.ci(t.sdp.high.data)
+      t.sdp.scenarioIV.data.ci <- print.mean.ci(t.sdp.scenarioIV.data)
+      t.sdp.scenarioIV_reduced_rec_prev.data.ci <- print.mean.ci(t.sdp.scenarioIV_reduced_rec_prev.data)
+      t.sdp.curr.vert.nodecui.data.ci <- print.mean.ci(t.sdp.curr.vert.nodecui.data)
+
+##############################################
+
+
+##############################################
  ### Save object
 ##############################################
   save.image("za_count_vertical_infections.RData")
