@@ -19,15 +19,15 @@
   ### %vertical transmissions
 ##############################################
 
-  compute.prop.vert.infections <- function(sdp_scn,
-                                           n.sim=n.sim,
-                                           time.pt.seq=time.pt.seq,
-                                           date,
-                                           ...
-                                           ){
+  compute.art.metrics <- function(sdp_scn,
+                                  n.sim=n.sim,
+                                  date,
+                                  last.time.pt,
+                                  ...
+                                  ){
 
       out.mat <- matrix(NA,
-                        ncol=length(time.pt.seq)-1,
+                        ncol=5,
                         nrow=n.sim)
 
      ## Record proportion of vertical transmissions
@@ -36,24 +36,18 @@
        load(paste("../Uganda_Runs_Do_Not_Commit/nw",date,"_UG_",sdp_scn,"_run",
                   i,".RData",sep=""))
        
-       net <- nw
-       time.of.infection <- get.vertex.attribute(net, "time.of.infection")
-       infector.id <- get.vertex.attribute(net, "infector.ID")
+       net <- network.collapse(nw, at=last.time.pt)
        
-       for (j in 1:(length(time.pt.seq)-1)){
-         
-         infected.last.year <- intersect(which(time.of.infection > time.pt.seq[j]),
-                                          which(time.of.infection <= time.pt.seq[j+1])
-                                               )
-         infected.vertically <- which(is.na(infector.id))
-         
-         infected.vertically.last.year <- intersect(infected.last.year,
-                                                    infected.vertically)
+       infected <- which(net%v%"inf.status" == 1)
+       on.art <- which(net%v%"art.status" == 1)
+       time.of.art.initiation <- net%v%"time.of.art.initiation"
 
-         out.mat[i,j] <- length(infected.vertically.last.year)/
-                                               length(infected.last.year)
-
-       }  
+       out.mat[i, 1] <- length(on.art)/length(infected)
+       out.mat[i, 2] <- mean(time.of.art.initiation, na.rm=TRUE)
+       out.mat[i, 3] <- quantile(time.of.art.initiation, na.rm=TRUE, 0.25)
+       out.mat[i, 4] <- median(time.of.art.initiation, na.rm=TRUE)
+       out.mat[i, 5] <- quantile(time.of.art.initiation, na.rm=TRUE, 0.75)
+        
      }
       return(out.mat)
     }
@@ -65,84 +59,37 @@
   ### scenarios
 ##############################################
 
-  sdp.curr.data <- compute.prop.vert.infections("sdp_curr",
-                                                n.sim=n.sim,
-                                                time.pt.seq=time.pt.seq,
-                                                date="2Nov" #2014
-                                                )
+  sdp.curr.art.metrics <- compute.art.metrics("sdp_curr",
+                                              n.sim=n.sim,
+                                              date="2Nov", #2014,
+                                              last.time.pt=1300
+                                              )
 
-  sdp.high.data <- compute.prop.vert.infections("sdp_high",
-                                                n.sim=n.sim,
-                                                time.pt.seq=time.pt.seq,
-                                                date="2Nov" #2014
-                                                )
+  sdp.high.art.metrics <- compute.art.metrics("sdp_high",
+                                              n.sim=n.sim,
+                                              date="2Nov", #2014,
+                                              last.time.pt=1300
+                                              )
 
-  sdp.scenarioIV.data <- compute.prop.vert.infections("sdp_scenarioIV",
-                                                      n.sim=n.sim,
-                                                      time.pt.seq=time.pt.seq,
-                                                      date="28Feb" #2015
-                                                      )
+  baseline.art.metrics <- compute.art.metrics("bl_cp",
+                                              n.sim=n.sim,
+                                              date="28Feb", #2014,
+                                              last.time.pt=1300
+                                              )
 
-  sdp.scenarioIV_reduced_rec_prev.data <- compute.prop.vert.infections(
-                                            "sdp_scenarioIV_reduced_rec_prev",
-                                            n.sim=n.sim,
-                                            time.pt.seq=time.pt.seq,
-                                            date="5Mar" #2015
-                                            )
+  sdp.scenarioIV.art.metrics <- compute.art.metrics("sdp_scenarioIV",
+                                                    n.sim=n.sim,
+                                                    date="28Feb", #2015
+                                                    last.time.pt=1300
+                                                    )
 
-  sdp.curr_nodecui.data <- compute.prop.vert.infections("sdp_curr_nodecui",
-                                                      n.sim=n.sim,
-                                                      time.pt.seq=time.pt.seq,
-                                                      date="8Mar" #2015
-                                                      )
-
-  baseline.data <- compute.prop.vert.infections("bl_cp",
-                                                n.sim=n.sim,
-                                                time.pt.seq=time.pt.seq,
-                                                date="28Feb" #2014 in this case
-                                                )
 
 ##############################################
 
-##############################################
-### Means and confidence intervals
-### in different scenarios
-##############################################
-
-  ## Compute means and confidence intervals
-     t.baseline.data <- t(baseline.data)
-     t.sdp.curr.data <- t(sdp.curr.data)
-     t.sdp.high.data <- t(sdp.high.data)
-     t.sdp.scenarioIV.data <- t(sdp.scenarioIV.data)
-     t.sdp.scenarioIV_reduced_rec_prev.data <- t(sdp.scenarioIV_reduced_rec_prev.data)
-     t.sdp.curr.nodecui.data <- t(sdp.curr_nodecui.data)
-
-  ## Write function to compute means and ci's of vertical infections
-     print.mean.ci <- function(t.data.matrix, ...){
-       n.sim <- ncol(t.data.matrix)
-       out.mat <- matrix(0, nrow=nrow(t.data.matrix), ncol=3)
-       
-       out.mat[,1] <- apply(t.data.matrix, 1, mean)
-       out.ci <- apply(t.data.matrix, 1, sd)*qt(0.975, df=n.sim-1)*1/sqrt(n.sim)
-       out.mat[,2] <- out.mat[,1] - out.ci
-       out.mat[,3] <- out.mat[,1] + out.ci
-
-       return(out.mat)
-     }
-
-   ## Apply function to compute means and confidence intervals
-      t.baseline.data.ci <- print.mean.ci(t.baseline.data)
-      t.sdp.curr.data.ci <- print.mean.ci(t.sdp.curr.data)
-      t.sdp.high.data.ci <- print.mean.ci(t.sdp.high.data)
-      t.sdp.scenarioIV.data.ci <- print.mean.ci(t.sdp.scenarioIV.data)
-      t.sdp.scenarioIV_reduced_rec_prev.data.ci <- print.mean.ci(t.sdp.scenarioIV_reduced_rec_prev.data)
-      t.sdp.curr.nodecui.data.ci <- print.mean.ci(t.sdp.curr.nodecui.data)
-
-##############################################
 
 ##############################################
  ### Save object
 ##############################################
-  save.image("ug_count_vertical_infections.RData")
+  save.image("ug_art_metrics.RData")
 
 ##############################################
