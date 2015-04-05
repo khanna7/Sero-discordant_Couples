@@ -34,13 +34,9 @@
      for (i in 1:n.sim){
        ##browser()
 
-       if (sdp_scn != "baseline_cp"){
-         load(paste("../SouthAfrica_Runs_Do_Not_Commit/nw",date,"_ZA_",sdp_scn,"_run",
+       load(paste("../Uganda_Runs_Do_Not_Commit/nw",date,"_UG_",sdp_scn,"_run",
                     i,".RData",sep=""))
-       } else {
-          load(paste("../SouthAfrica_Runs_Do_Not_Commit/nw",date,"_UG_",sdp_scn,"_run",
-                    i,".RData",sep=""))
-        }
+
        
        net <- network.collapse(nw, at=last.time.pt)
        
@@ -70,19 +66,19 @@
 
   sdp.curr.viral.supp.data <- compute.viral.supp("sdp_curr",
                                                   n.sim=n.sim,
-                                                  date="9Nov", #2014,
+                                                  date="2Nov", #2014,
                                                   last.time.pt=1040
                                                   )
 
   sdp.high.viral.supp.data <- compute.viral.supp("sdp_high",
                                                   n.sim=n.sim,
-                                                  date="9Nov", #2014,
+                                                  date="2Nov", #2014,
                                                   last.time.pt=1040
                                                   )
 
-  baseline.viral.supp.data <- compute.viral.supp("baseline_cp",
+  baseline.viral.supp.data <- compute.viral.supp("bl_cp",
                                                  n.sim=n.sim,
-                                                 date="27May", #2014,
+                                                 date="28Feb", #2014,
                                                  last.time.pt=1040
                                                  )
 
@@ -99,6 +95,6 @@
 ##############################################
  ### Save object
 ##############################################
-  save.image("za_viral_supp.RData")
+  save.image("ug_viral_supp.RData")
 
 ##############################################
