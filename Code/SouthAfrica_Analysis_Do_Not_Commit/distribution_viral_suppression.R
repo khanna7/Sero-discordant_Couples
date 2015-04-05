@@ -1,5 +1,5 @@
 ##############################################
-### ART metrics
+### How many of those on ART are virally suppressed?
 ##############################################
 
   ## At the last time step
@@ -18,16 +18,17 @@
   ### %vertical transmissions
 ##############################################
 
-  compute.art.metrics <- function(sdp_scn,
+  compute.viral.supp <- function(sdp_scn,
                                   n.sim=n.sim,
                                   date,
                                   last.time.pt,
+                                  viral.supp.level=2,
                                   ...
                                   ){
 
-      out.mat <- matrix(NA,
-                        ncol=5,
-                        nrow=n.sim)
+     out.mat <- matrix(NA,
+                       ncol=5,
+                       nrow=n.sim)
 
      ## Record proportion of vertical transmissions
      for (i in 1:n.sim){
@@ -45,14 +46,17 @@
        
        infected <- which(net%v%"inf.status" == 1)
        on.art <- which(net%v%"art.status" == 1)
-       time.of.art.initiation <- net%v%"time.of.art.initiation"
+       viral.load.today <- net%v%"viral.load.today"
+       suppressed <- which(viral.load.today < viral.supp.level)
+       
+       on.art.virally.suppressed <- intersect(on.art,
+                                              suppressed)
 
-       out.mat[i, 1] <- length(on.art)/length(infected)
-       out.mat[i, 2] <- mean(time.of.art.initiation, na.rm=TRUE)
-       out.mat[i, 3] <- quantile(time.of.art.initiation, na.rm=TRUE, 0.25)
-       out.mat[i, 4] <- median(time.of.art.initiation, na.rm=TRUE)
-       out.mat[i, 5] <- quantile(time.of.art.initiation, na.rm=TRUE, 0.75)
-        
+       out.mat[i, 1] <- length(infected)
+       out.mat[i, 2] <- length(on.art) 
+       out.mat[i, 3] <- length(on.art.virally.suppressed)             
+       out.mat[i, 4] <- length(on.art.virally.suppressed)/length(infected)
+       out.mat[i, 5] <- network.size(net)
      }
       return(out.mat)
     }
@@ -64,29 +68,29 @@
   ### scenarios
 ##############################################
 
-  sdp.curr.art.metrics <- compute.art.metrics("sdp_curr",
-                                              n.sim=n.sim,
-                                              date="9Nov", #2014,
-                                              last.time.pt=1040
-                                              )
+  sdp.curr.viral.supp.data <- compute.viral.supp("sdp_curr",
+                                                  n.sim=n.sim,
+                                                  date="9Nov", #2014,
+                                                  last.time.pt=1040
+                                                  )
 
-  sdp.high.art.metrics <- compute.art.metrics("sdp_high",
-                                              n.sim=n.sim,
-                                              date="9Nov", #2014,
-                                              last.time.pt=1040
-                                              )
+  sdp.high.viral.supp.data <- compute.viral.supp("sdp_high",
+                                                  n.sim=n.sim,
+                                                  date="9Nov", #2014,
+                                                  last.time.pt=1040
+                                                  )
 
-  baseline.art.metrics <- compute.art.metrics("baseline_cp",
-                                              n.sim=n.sim,
-                                              date="27May", #2014,
-                                              last.time.pt=1040
-                                              )
+  baseline.viral.supp.data <- compute.viral.supp("baseline_cp",
+                                                 n.sim=n.sim,
+                                                 date="27May", #2014,
+                                                 last.time.pt=1040
+                                                 )
 
-  sdp.scenarioIV.art.metrics <- compute.art.metrics("sdp_scenarioIV",
-                                                    n.sim=n.sim,
-                                                    date="28Feb", #2015
-                                                    last.time.pt=1040
-                                                    )
+  sdp.scenarioIV.viral.supp.data <- compute.viral.supp("sdp_scenarioIV",
+                                                       n.sim=n.sim,
+                                                       date="28Feb", #2015
+                                                       last.time.pt=1040
+                                                       )
 
 
 ##############################################
@@ -95,6 +99,6 @@
 ##############################################
  ### Save object
 ##############################################
-  save.image("ug_art_metrics.RData")
+  save.image("za_viral_supp.RData")
 
 ##############################################
