@@ -70,13 +70,13 @@
 
   sdp.curr.viral.supp.data <- compute.viral.supp("sdp_curr",
                                                   n.sim=n.sim,
-                                                  date="5Apr", #2014,
+                                                  date="6Apr", 
                                                   last.time.pt=1040
                                                   )
 
   sdp.high.viral.supp.data <- compute.viral.supp("sdp_high",
                                                   n.sim=n.sim,
-                                                  date="5Apr", #2014,
+                                                  date="5Apr", 
                                                   last.time.pt=1040
                                                   )
 
@@ -88,7 +88,7 @@
 
   sdp.scenarioIV.viral.supp.data <- compute.viral.supp("sdp_scenarioIV",
                                                        n.sim=n.sim,
-                                                       date="5Apr", #2015
+                                                       date="5Apr", 
                                                        last.time.pt=1040
                                                        )
 

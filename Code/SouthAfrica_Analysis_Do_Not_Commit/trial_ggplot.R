@@ -56,7 +56,7 @@
                                         )
 
 
-  melted.data.mean.lb.ub <- melted.data.mean.lb.ub[1:44,]
+  melted.data.mean.lb.ub <- melted.data.mean.lb.ub[1:44,] #first four scenarios
 
   ## construct line plot
  
@@ -78,7 +78,7 @@
          )+ #plot
       geom_line()+ #mean-value-lines
       geom_errorbar(width=0.25, linetype=2)+
-      scale_color_manual(values=cbPalette.black[1:6])+
+      scale_color_manual(values=cbPalette.black[c(1:6)])+
       ylim(0,3.2)+
       scale_x_continuous(breaks=c(0, 1, 4, 7, 10))
 

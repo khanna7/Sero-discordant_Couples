@@ -85,17 +85,10 @@
                                                       date="5Apr" #2015
                                                       )
 
-  sdp.scenarioIV_reduced_rec_prev.data <- compute.prop.vert.infections(
-                                            "sdp_scenarioIV_reduced_rec_prev",
-                                            n.sim=n.sim,
-                                            time.pt.seq=time.pt.seq,
-                                            date="5Mar" #2015
-                                            )
-
   sdp.curr_nodecui.data <- compute.prop.vert.infections("sdp_curr",
                                                       n.sim=n.sim,
                                                       time.pt.seq=time.pt.seq,
-                                                      date="8Mar" #2015
+                                                      date="5Apr" #2015
                                                       )
 
   baseline.data <- compute.prop.vert.infections("baseline_cp",
@@ -116,7 +109,6 @@
      t.sdp.curr.data <- t(sdp.curr.data)
      t.sdp.high.data <- t(sdp.high.data)
      t.sdp.scenarioIV.data <- t(sdp.scenarioIV.data)
-     t.sdp.scenarioIV_reduced_rec_prev.data <- t(sdp.scenarioIV_reduced_rec_prev.data)
      t.sdp.curr.nodecui.data <- t(sdp.curr_nodecui.data)
 
   ## Write function to compute means and ci's of vertical infections
@@ -137,7 +129,6 @@
       t.sdp.curr.data.ci <- print.mean.ci(t.sdp.curr.data)
       t.sdp.high.data.ci <- print.mean.ci(t.sdp.high.data)
       t.sdp.scenarioIV.data.ci <- print.mean.ci(t.sdp.scenarioIV.data)
-      t.sdp.scenarioIV_reduced_rec_prev.data.ci <- print.mean.ci(t.sdp.scenarioIV_reduced_rec_prev.data)
       t.sdp.curr.nodecui.data.ci <- print.mean.ci(t.sdp.curr.nodecui.data)
 
 ##############################################
