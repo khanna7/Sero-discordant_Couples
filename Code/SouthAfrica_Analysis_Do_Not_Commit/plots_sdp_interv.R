@@ -32,7 +32,7 @@ rm(list=ls())
   ## SDP current coverage
      for (i in 1:n.sim){
        assign(paste("za.sdp.curr.run.",i, sep=""),
-              read.csv(paste("../SouthAfrica_Runs_Do_Not_Commit/9Nov_ZA_sdp_curr_run", i,
+              read.csv(paste("../SouthAfrica_Runs_Do_Not_Commit/5Apr_ZA_sdp_curr_run", i,
                              ".prev.inc.data.csv",
                              sep=""),
                        sep=" ", header=FALSE)
@@ -42,7 +42,7 @@ rm(list=ls())
   ## SDP high coverage
      for (i in 1:n.sim){
        assign(paste("za.sdp.high.run.",i, sep=""),
-              read.csv(paste("../SouthAfrica_Runs_Do_Not_Commit/9Nov_ZA_sdp_high_run", i,
+              read.csv(paste("../SouthAfrica_Runs_Do_Not_Commit/5Apr_ZA_sdp_high_run", i,
                              ".prev.inc.data.csv",
                              sep=""),
                        sep=" ", header=FALSE)
@@ -52,7 +52,7 @@ rm(list=ls())
   ## Scenario IV: Model testing
      for (i in 1:n.sim){
        assign(paste("za.sdp.scenarioIV.run.",i, sep=""),
-              read.csv(paste("../SouthAfrica_Runs_Do_Not_Commit/28Feb_ZA_sdp_scenarioIV_run", i,
+              read.csv(paste("../SouthAfrica_Runs_Do_Not_Commit/5Apr_ZA_sdp_scenarioIV_run", i,
                              ".prev.inc.data.csv",
                              sep=""),
                        sep=" ", header=FALSE)

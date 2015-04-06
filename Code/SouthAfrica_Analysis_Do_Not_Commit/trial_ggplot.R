@@ -56,6 +56,7 @@
                                         )
 
 
+  melted.data.mean.lb.ub <- melted.data.mean.lb.ub[1:44,]
 
   ## construct line plot
  
@@ -78,14 +79,14 @@
       geom_line()+ #mean-value-lines
       geom_errorbar(width=0.25, linetype=2)+
       scale_color_manual(values=cbPalette.black[1:6])+
-      ylim(0,3.2)     
+      ylim(0,3.2)+
+      scale_x_continuous(breaks=c(0, 1, 4, 7, 10))
 
 
    format.axes <- line.plot+
       ylab("Incidence")+
       theme(axis.text.y=element_text(face='bold'))+
-      theme(axis.text.x=element_text(face='bold'))+
-      scale_x_continuous(breaks=c(0, 1, 4, 7, 10))
+      theme(axis.text.x=element_text(face='bold'))
 
    za.w.legend <- line.plot+ggtitle("South Africa")+
                   theme(legend.position=c(0.5,0.2),
