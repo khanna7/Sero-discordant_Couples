@@ -49,7 +49,13 @@
      cd4.count.today <- nw%v%"cd4.count.today"
      art.status <- nw%v%"art.status"
      art.type <- nw%v%"art.type"
+     vl.art.traj.slope <- nw%v%"vl.art.traj.slope"
+     time.since.art.initiation <- nw%v%"time.since.art.initiation"
+     viral.load.today <- nw%v%"viral.load.today"
 
+  ## Placeholder to record new ART initiations
+     new.art.starters <- rep(0, length(art.status))
+      
   ## Extract relevant edge attributes
      longest.ptshp <- nw%e%"longest.ptshp"
      ##known.longest.sdp <- nw%e%"known.longest.sdp"
@@ -107,6 +113,13 @@
              art.status[pos.ind] <- coin.flip
              if (coin.flip == 1){
                art.type[pos.ind] <- 1
+               
+               new.art.starters[pos.ind] <- 1 #record new ART starters
+               
+               vl.art.traj.slope[pos.ind] <-
+                 abs((undetectable.vl - viral.load.today[pos.ind])/
+                     time.to.full.supp)
+               
              } 
            }
          }
@@ -136,6 +149,12 @@
              art.status[pos.ind] <- coin.flip
              if (coin.flip == 1){
                art.type[pos.ind] <- 1
+
+               vl.art.traj.slope[pos.ind] <-
+                 abs((undetectable.vl - viral.load.today[pos.ind])/
+                     time.to.full.supp)
+               
+               new.art.starters[pos.ind] <- 1 #new ART initiators
              } 
            }
          }
@@ -145,6 +164,31 @@
   ## Update vertex attributes
      nw%v%"art.status" <- art.status #16oct14
      nw%v%"art.type" <- art.type #16oct14
+
+     new.art.starters.1 <- which(new.art.starters == 1)
+
+     set.vertex.attribute(nw, "vl.at.art.initiation",
+                          viral.load.today[new.art.starters.1],
+                          new.art.starters.1)
+     
+     set.vertex.attribute(nw, "cd4.at.art.initiation", #20Feb14
+                          cd4.count.today[new.art.starters.1],
+                          new.art.starters.1)
+
+     set.vertex.attribute(nw, "art.status", 1,
+                          new.art.starters.1) # corrected 1Nov13
+     set.vertex.attribute(nw, "art.type", 1,
+                          new.art.starters.1) # corrected 1Nov13
+     set.vertex.attribute(nw, "time.of.art.initiation", time,
+                          new.art.starters.1)
+     set.vertex.attribute(nw, "time.since.art.initiation", 0,
+                          new.art.starters.1)
+
+     set.vertex.attribute(nw, "vl.art.traj.slope",
+                          vl.art.traj.slope[new.art.starters.1],
+                          v=new.art.starters.1
+                          )
+
 
   ## Update new edge attributes
      ## nw%e%"longest.ptshp" <- longest.ptshp
