@@ -66,13 +66,13 @@
 
   sdp.curr.art.metrics <- compute.art.metrics("sdp_curr",
                                               n.sim=n.sim,
-                                              date="5Apr", #2014,
+                                              date="6Apr", 
                                               last.time.pt=1040
                                               )
 
   sdp.high.art.metrics <- compute.art.metrics("sdp_high",
                                               n.sim=n.sim,
-                                              date="5Apr", #2014,
+                                              date="5Apr", 
                                               last.time.pt=1040
                                               )
 
@@ -84,7 +84,7 @@
 
   sdp.scenarioIV.art.metrics <- compute.art.metrics("sdp_scenarioIV",
                                                     n.sim=n.sim,
-                                                    date="5Apr", #2015
+                                                    date="5Apr", 
                                                     last.time.pt=1040
                                                     )
 
