@@ -22,8 +22,7 @@
                                           33+(mean.start.id),
                                           (33*2)+(mean.start.id),
                                           (33*3)+(mean.start.id),
-                                          (33*4)+(mean.start.id),
-                                          (33*5)+(mean.start.id)
+                                          (33*4)+(mean.start.id)
                                           ),]
 
   lb.start.id <- mean.start.id+11
@@ -31,8 +30,7 @@
                                           33+(lb.start.id),
                                           (33*2)+(lb.start.id),
                                           (33*3)+(lb.start.id),
-                                          (33*4)+(lb.start.id),
-                                          (33*5)+(lb.start.id)
+                                          (33*4)+(lb.start.id)
                                           ),]
 
   ub.start.id <- mean.start.id+22
@@ -40,8 +38,7 @@
                                           33+(ub.start.id),
                                           (33*2)+(ub.start.id),
                                           (33*3)+(ub.start.id),
-                                          (33*4)+(ub.start.id),
-                                          (33*5)+(ub.start.id)
+                                          (33*4)+(ub.start.id)
                                           ),]
 
   melted.data.mean.lb.ub <- cbind(melted.data.meanvalues,
@@ -55,8 +52,9 @@
                                         "UB"
                                         )
 
-
+  melted.data.w.sdp.cu.noui <- melted.data.mean.lb.ub
   melted.data.mean.lb.ub <- melted.data.mean.lb.ub[1:44,] #first four scenarios
+
 
   ## construct line plot
  
