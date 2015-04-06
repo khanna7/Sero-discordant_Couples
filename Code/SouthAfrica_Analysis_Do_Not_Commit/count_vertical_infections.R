@@ -70,7 +70,7 @@
   sdp.curr.data <- compute.prop.vert.infections("sdp_curr",
                                                 n.sim=n.sim,
                                                 time.pt.seq=time.pt.seq,
-                                                date="5Apr" #2014
+                                                date="6Apr" #2014
                                                 )
 
   sdp.high.data <- compute.prop.vert.infections("sdp_high",
@@ -85,10 +85,10 @@
                                                       date="5Apr" #2015
                                                       )
 
-  sdp.curr_nodecui.data <- compute.prop.vert.infections("sdp_curr",
+  sdp.curr_nodecui.data <- compute.prop.vert.infections("sdp_curr_nodecui",
                                                       n.sim=n.sim,
                                                       time.pt.seq=time.pt.seq,
-                                                      date="5Apr" #2015
+                                                      date="6Apr" #2015
                                                       )
 
   baseline.data <- compute.prop.vert.infections("baseline_cp",

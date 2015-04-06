@@ -32,7 +32,7 @@ rm(list=ls())
   ## SDP current coverage
      for (i in 1:n.sim){
        assign(paste("za.sdp.curr.run.",i, sep=""),
-              read.csv(paste("../SouthAfrica_Runs_Do_Not_Commit/5Apr_ZA_sdp_curr_run", i,
+              read.csv(paste("../SouthAfrica_Runs_Do_Not_Commit/6Apr_ZA_sdp_curr_run", i,
                              ".prev.inc.data.csv",
                              sep=""),
                        sep=" ", header=FALSE)
@@ -62,7 +62,7 @@ rm(list=ls())
   ## No decline in UI + Scenario II
      for (i in 1:n.sim){
        assign(paste("za.sdp.curr.nodecui.run.",i, sep=""),
-              read.csv(paste("../SouthAfrica_Runs_Do_Not_Commit/5Apr_ZA_sdp_curr_nodecui_run", i,
+              read.csv(paste("../SouthAfrica_Runs_Do_Not_Commit/6Apr_ZA_sdp_curr_nodecui_run", i,
                              ".prev.inc.data.csv",
                              sep=""),
                        sep=" ", header=FALSE)
