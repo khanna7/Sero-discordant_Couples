@@ -34,7 +34,7 @@ rm(list=ls())
   ## SDP current coverage
      for (i in 1:n.sim){
        assign(paste("ug.sdp.curr.run.",i, sep=""),
-              read.csv(paste("../Uganda_Runs_Do_Not_Commit/2Nov_UG_sdp_curr_run", i,
+              read.csv(paste("../Uganda_Runs_Do_Not_Commit/5Apr_UG_sdp_curr_run", i,
                              ".prev.inc.data.csv",
                              sep=""),
                        sep=" ", header=FALSE)
@@ -44,7 +44,7 @@ rm(list=ls())
   ## SDP high coverage
      for (i in 1:n.sim){
        assign(paste("ug.sdp.high.run.",i, sep=""),
-              read.csv(paste("../Uganda_Runs_Do_Not_Commit/2Nov_UG_sdp_high_run", i,
+              read.csv(paste("../Uganda_Runs_Do_Not_Commit/5Apr_UG_sdp_high_run", i,
                              ".prev.inc.data.csv",
                              sep=""),
                        sep=" ", header=FALSE)
@@ -54,27 +54,7 @@ rm(list=ls())
   ## SDP Scenario IV
      for (i in 1:n.sim){
        assign(paste("ug.sdp.scenarioIV.run.",i, sep=""),
-              read.csv(paste("../Uganda_Runs_Do_Not_Commit/28Feb_UG_sdp_scenarioIV_run", i,
-                             ".prev.inc.data.csv",
-                             sep=""),
-                       sep=" ", header=FALSE)
-              )
-     }                    
-
-  ## SDP Scenario IV + reduced prevalence at recruitment for women
-     for (i in 1:n.sim){
-       assign(paste("ug.sdp.scenarioIV.red.rec.prev.run.",i, sep=""),
-              read.csv(paste("../Uganda_Runs_Do_Not_Commit/5Mar_UG_sdp_scenarioIV_reduced_rec_prev_run", i,
-                             ".prev.inc.data.csv",
-                             sep=""),
-                       sep=" ", header=FALSE)
-              )
-     }                    
-
-  ## SDP Current Coverage + no decline in UI
-     for (i in 1:n.sim){
-       assign(paste("ug.sdp.scenarioIV.red.rec.prev.run.",i, sep=""),
-              read.csv(paste("../Uganda_Runs_Do_Not_Commit/5Mar_UG_sdp_scenarioIV_reduced_rec_prev_run", i,
+              read.csv(paste("../Uganda_Runs_Do_Not_Commit/5Apr_UG_sdp_scenarioIV_run", i,
                              ".prev.inc.data.csv",
                              sep=""),
                        sep=" ", header=FALSE)
@@ -84,7 +64,7 @@ rm(list=ls())
   ## No decline in UI + Scenario II
      for (i in 1:n.sim){
        assign(paste("ug.sdp.curr.nodecui.run.",i, sep=""),
-              read.csv(paste("../Uganda_Runs_Do_Not_Commit/8Mar_UG_sdp_curr_nodecui_run", i,
+              read.csv(paste("../Uganda_Runs_Do_Not_Commit/5Apr_UG_sdp_curr_nodecui_run", i,
                              ".prev.inc.data.csv",
                              sep=""),
                        sep=" ", header=FALSE)
@@ -121,13 +101,6 @@ rm(list=ls())
      for (i in 1:n.sim){ 
        data <- get(paste("ug.sdp.scenarioIV.run.",i, sep=""))
        mean.inci.sdp.scenarioIV[,i] <- (data[,6]/(data[,2]-data[,7])) 
-     }
-
-  ## SDP scenario IV model testing + reduced prevalence at recruitment for women
-     mean.inci.sdp.scenarioIV.red.rec.prev <- matrix(NA, ncol=n.sim, nrow=260)
-     for (i in 1:n.sim){ 
-       data <- get(paste("ug.sdp.scenarioIV.red.rec.prev.run.",i, sep=""))
-       mean.inci.sdp.scenarioIV.red.rec.prev[,i] <- (data[,6]/(data[,2]-data[,7])) 
      }
 
   ## SDP current coverage + no decline in UI
@@ -194,16 +167,6 @@ rm(list=ls())
      sdp.scenarioIV.upci <- (sdp.scenarioIV.mean)+((qt(0.975, df=n.sim-1)*unlist(lapply(sdp.scenarioIV,
                       sd))*(26*100))/sqrt(n.sim)) ##30Jun14
 
-     ## Scenario IV model testing + Reduced prevalence at recruitment
-     sdp.scenarioIV.red.rec.prev <- apply(mean.inci.sdp.scenarioIV.red.rec.prev, 1, mean)
-
-     sdp.scenarioIV.red.rec.prev <- split(sdp.scenarioIV.red.rec.prev, ceiling(seq_along(sdp.scenarioIV.red.rec.prev)/26))
-     sdp.scenarioIV.red.rec.prev.mean <- unlist(lapply(sdp.scenarioIV.red.rec.prev, mean))*26*100
-     sdp.scenarioIV.red.rec.prev.lowci <- (sdp.scenarioIV.red.rec.prev.mean)-((qt(0.975, df=n.sim-1)*unlist(lapply(sdp.scenarioIV.red.rec.prev,
-                                                     sd))*(26*100))/sqrt(n.sim)) 
-     sdp.scenarioIV.red.rec.prev.upci <- (sdp.scenarioIV.red.rec.prev.mean)+((qt(0.975, df=n.sim-1)*unlist(lapply(sdp.scenarioIV.red.rec.prev,
-                      sd))*(26*100))/sqrt(n.sim)) ##30Jun14
-
      ## SDP current coverage + no decline in UI
      sdp.curr.nodecui <- apply(mean.inci.sdp.curr.nodecui, 1, mean)
 
@@ -221,9 +184,6 @@ rm(list=ls())
                       sdp.curr.mean, sdp.curr.lowci, sdp.curr.upci,
                       sdp.high.mean, sdp.high.lowci, sdp.high.upci,
                       sdp.scenarioIV.mean, sdp.scenarioIV.lowci, sdp.scenarioIV.upci,
-                      sdp.scenarioIV.red.rec.prev.mean,
-                                                       sdp.scenarioIV.red.rec.prev.lowci,
-                                                       sdp.scenarioIV.red.rec.prev.upci,
                       sdp.curr.nodecui.mean, sdp.curr.nodecui.lowci,
                                              sdp.curr.nodecui.upci
                       )
@@ -233,9 +193,6 @@ rm(list=ls())
          "SDP.Curr.Mean", "SDP.Curr.LowCI", "SDP.Curr.HighCI",
          "SDP.High.Mean", "SDP.High.LowCI", "SDP.High.HighCI",
          "SDP.ScenarioIV.Mean", "SDP.ScenarioIV.LowCI", "SDP.ScenarioIV.HighCI",
-         "SDP.ScenarioIV.Red.Rec.Prev.Mean",
-                                           "SDP.ScenarioIV.Red.Rec.Prev.LowCI",
-                                           "SDP.ScenarioIV.Red.Rec.Prev.HighCI",
          "SDP.Curr.Nodecui.Mean",
                                  "SDP.Curr.Nodecui.LowCI",
                                  "SDP.Curr.Nodecui.UpCI"
