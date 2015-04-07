@@ -12,6 +12,10 @@
 
   ## Needed data
      n.sim <- 5 #num of simulations
+     last.time.pt <- 1300 #needs to say 1300 because that was how these runs were numbered
+       ## baseline.data are labeled from 1040 to 1300
+       ## others are from 780 to 1040, extracting at 1300
+       ## will give network at last time step for all cases
 
 ##############################################
   ### Write function to compute
@@ -71,25 +75,25 @@
   sdp.curr.viral.supp.data <- compute.viral.supp("sdp_curr",
                                                   n.sim=n.sim,
                                                   date="6Apr", 
-                                                  last.time.pt=1040
+                                                  last.time.pt=last.time.pt
                                                   )
 
   sdp.high.viral.supp.data <- compute.viral.supp("sdp_high",
                                                   n.sim=n.sim,
                                                   date="5Apr", 
-                                                  last.time.pt=1040
+                                                  last.time.pt=last.time.pt
                                                   )
 
   baseline.viral.supp.data <- compute.viral.supp("baseline_cp",
                                                  n.sim=n.sim,
                                                  date="27May", #2014,
-                                                 last.time.pt=1040
+                                                 last.time.pt=last.time.pt
                                                  )
 
   sdp.scenarioIV.viral.supp.data <- compute.viral.supp("sdp_scenarioIV",
                                                        n.sim=n.sim,
                                                        date="5Apr", 
-                                                       last.time.pt=1040
+                                                       last.time.pt=last.time.pt
                                                        )
 
 

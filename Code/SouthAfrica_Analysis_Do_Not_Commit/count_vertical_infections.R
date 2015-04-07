@@ -10,6 +10,8 @@
   ## Needed data
      n.sim <- 5 #num of simulations
      time.pt.seq <- seq(780, 1040, by=26) #sequence of time-points
+     time.pt.seq.bl <- seq(1040, 1300, by=26)
+       ## NB baseline data are labeled from 1040 to 1300
 
 ##############################################
   ### Write function to compute
@@ -93,7 +95,7 @@
 
   baseline.data <- compute.prop.vert.infections("baseline_cp",
                                                 n.sim=n.sim,
-                                                time.pt.seq=time.pt.seq,
+                                                time.pt.seq=time.pt.seq.bl,
                                                 date="27May" #2014 in this case
                                                 )
 
