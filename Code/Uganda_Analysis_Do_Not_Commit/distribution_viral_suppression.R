@@ -12,6 +12,7 @@
 
   ## Needed data
      n.sim <- 5 #num of simulations
+     last.time.pt <- 1300
 
 ##############################################
   ### Write function to compute
@@ -67,25 +68,25 @@
   sdp.curr.viral.supp.data <- compute.viral.supp("sdp_curr",
                                                   n.sim=n.sim,
                                                   date="5Apr", 
-                                                  last.time.pt=1040
+                                                  last.time.pt= last.time.pt
                                                   )
 
   sdp.high.viral.supp.data <- compute.viral.supp("sdp_high",
                                                   n.sim=n.sim,
                                                   date="5Apr", 
-                                                  last.time.pt=1040
+                                                  last.time.pt= last.time.pt
                                                   )
 
   baseline.viral.supp.data <- compute.viral.supp("bl_cp",
                                                  n.sim=n.sim,
                                                  date="28Feb", #2014,
-                                                 last.time.pt=1040
+                                                 last.time.pt= last.time.pt
                                                  )
 
   sdp.scenarioIV.viral.supp.data <- compute.viral.supp("sdp_scenarioIV",
                                                        n.sim=n.sim,
                                                        date="5Apr", 
-                                                       last.time.pt=1040
+                                                       last.time.pt= last.time.pt
                                                        )
 
 
