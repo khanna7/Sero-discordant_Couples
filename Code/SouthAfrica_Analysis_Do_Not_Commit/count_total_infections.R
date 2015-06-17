@@ -126,31 +126,31 @@ rm(list=ls())
      bl.cp <- apply(total.inf.bl.cp, 1, mean)
 
      bl.cp <- split(bl.cp, ceiling(seq_along(bl.cp)/26))
-     bl.cp.mean <- unlist(lapply(bl.cp, mean))*26*100
+     bl.cp.mean <- unlist(lapply(bl.cp, mean))*26
      bl.cp.lowci <- (bl.cp.mean)-((qt(0.975, df=n.sim-1)*unlist(lapply(bl.cp,
-                                                     sd))*(26*100))/sqrt(n.sim)) 
+                                                     sd))*(26))/sqrt(n.sim)) 
      bl.cp.upci <- (bl.cp.mean)+((qt(0.975, df=n.sim-1)*unlist(lapply(bl.cp,
-                      sd))*(26*100))/sqrt(n.sim)) ##30Jun14
+                      sd))*(26))/sqrt(n.sim)) ##30Jun14
 
      ## SDP current
      sdp.curr <- apply(total.inf.sdp.curr, 1, mean)
 
      sdp.curr <- split(sdp.curr, ceiling(seq_along(sdp.curr)/26))
-     sdp.curr.mean <- unlist(lapply(sdp.curr, mean))*26*100
+     sdp.curr.mean <- unlist(lapply(sdp.curr, mean))*26
      sdp.curr.lowci <- (sdp.curr.mean)-((qt(0.975, df=n.sim-1)*unlist(lapply(sdp.curr,
-                                                     sd))*(26*100))/sqrt(n.sim)) 
+                                                     sd))*(26))/sqrt(n.sim)) 
      sdp.curr.upci <- (sdp.curr.mean)+((qt(0.975, df=n.sim-1)*unlist(lapply(sdp.curr,
-                      sd))*(26*100))/sqrt(n.sim)) ##30Jun14
+                      sd))*(26))/sqrt(n.sim)) ##30Jun14
 
      ## SDP high
      sdp.high <- apply(total.inf.sdp.high, 1, mean)
 
      sdp.high <- split(sdp.high, ceiling(seq_along(sdp.high)/26))
-     sdp.high.mean <- unlist(lapply(sdp.high, mean))*26*100
+     sdp.high.mean <- unlist(lapply(sdp.high, mean))*26
      sdp.high.lowci <- (sdp.high.mean)-((qt(0.975, df=n.sim-1)*unlist(lapply(sdp.high,
-                                                     sd))*(26*100))/sqrt(n.sim)) 
+                                                     sd))*(26))/sqrt(n.sim)) 
      sdp.high.upci <- (sdp.high.mean)+((qt(0.975, df=n.sim-1)*unlist(lapply(sdp.high,
-                      sd))*(26*100))/sqrt(n.sim)) ##30Jun14
+                      sd))*(26))/sqrt(n.sim)) ##30Jun14
 
 
 
@@ -158,21 +158,21 @@ rm(list=ls())
      sdp.scenarioIV <- apply(total.inf.sdp.scenarioIV, 1, mean)
 
      sdp.scenarioIV <- split(sdp.scenarioIV, ceiling(seq_along(sdp.scenarioIV)/26))
-     sdp.scenarioIV.mean <- unlist(lapply(sdp.scenarioIV, mean))*26*100
+     sdp.scenarioIV.mean <- unlist(lapply(sdp.scenarioIV, mean))*26
      sdp.scenarioIV.lowci <- (sdp.scenarioIV.mean)-((qt(0.975, df=n.sim-1)*unlist(lapply(sdp.scenarioIV,
-                                                     sd))*(26*100))/sqrt(n.sim)) 
+                                                     sd))*(26))/sqrt(n.sim)) 
      sdp.scenarioIV.upci <- (sdp.scenarioIV.mean)+((qt(0.975, df=n.sim-1)*unlist(lapply(sdp.scenarioIV,
-                      sd))*(26*100))/sqrt(n.sim)) ##30Jun14
+                      sd))*(26))/sqrt(n.sim)) ##30Jun14
 
      ## SDP current coverage + no decline in UI
      sdp.curr.nodecui <- apply(total.inf.sdp.curr.nodecui, 1, mean)
 
      sdp.curr.nodecui <- split(sdp.curr.nodecui, ceiling(seq_along(sdp.curr.nodecui)/26))
-     sdp.curr.nodecui.mean <- unlist(lapply(sdp.curr.nodecui, mean))*26*100
+     sdp.curr.nodecui.mean <- unlist(lapply(sdp.curr.nodecui, mean))*26
      sdp.curr.nodecui.lowci <- (sdp.curr.nodecui.mean)-((qt(0.975, df=n.sim-1)*unlist(lapply(sdp.curr.nodecui,
-                                                     sd))*(26*100))/sqrt(n.sim)) 
+                                                     sd))*(26))/sqrt(n.sim)) 
      sdp.curr.nodecui.upci <- (sdp.curr.nodecui.mean)+((qt(0.975, df=n.sim-1)*unlist(lapply(sdp.curr.nodecui,
-                      sd))*(26*100))/sqrt(n.sim)) ##30Jun14
+                      sd))*(26))/sqrt(n.sim)) ##30Jun14
 
 
      ## Combine
