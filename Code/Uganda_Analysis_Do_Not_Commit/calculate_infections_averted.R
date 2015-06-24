@@ -35,3 +35,74 @@ sd(prop.averted.sdp.curr.persim)*dt(0.975, df=n.sim-1)/sqrt(n.sim)
 sd(prop.averted.sdp.high.persim)*dt(0.975, df=n.sim-1)/sqrt(n.sim)
 sd(prop.averted.sdp.curr.nodecui.persim)*dt(0.975, df=n.sim-1)/sqrt(n.sim)
 
+#################################################################
+## SDP current: %Infections averted ANNUALLY over 10 years
+###########################################################
+
+## Compute total number of infections per year per simulatino
+   ## Columns show simulation number
+   ## Rows show year: Index 0 is year 1, ..
+
+bl.cp.total.inf.per.year.per.sim <- 
+  apply(total.inf.bl.cp, 2, function (x){
+    tapply( x , (seq_along(x)-1) %/% 26, sum)
+  }
+        )
+
+sdp.curr.total.inf.per.year.per.sim <- 
+  apply(total.inf.sdp.curr, 2, function (x){
+    tapply( x , (seq_along(x)-1) %/% 26, sum)
+  }
+        )
+
+sdp.high.total.inf.per.year.per.sim <- 
+  apply(total.inf.sdp.high, 2, function (x){
+    tapply( x , (seq_along(x)-1) %/% 26, sum)
+  }
+        )
+
+sdp.curr.nodecui.total.inf.per.year.per.sim <- 
+  apply(total.inf.sdp.curr.nodecui, 2, function (x){
+    tapply( x , (seq_along(x)-1) %/% 26, sum)
+  }
+        )
+
+## Now compute % averted per year per sim
+
+   ## SDP Curr
+   prop.averted.peryear.per.sim.sdp.curr <-
+  (bl.cp.total.inf.per.year.per.sim -
+    sdp.curr.total.inf.per.year.per.sim)/
+     (bl.cp.total.inf.per.year.per.sim)
+
+   ## SDP High
+   prop.averted.peryear.per.sim.sdp.high <-
+  (bl.cp.total.inf.per.year.per.sim -
+    sdp.high.total.inf.per.year.per.sim)/
+     (bl.cp.total.inf.per.year.per.sim)
+
+   ## SDP Curr + No decline UI
+   prop.averted.peryear.per.sim.sdp.curr.nodecui <-
+  (bl.cp.total.inf.per.year.per.sim -
+    sdp.curr.nodecui.total.inf.per.year.per.sim)/
+     (bl.cp.total.inf.per.year.per.sim)
+
+
+## Mean and Standard errors
+   ## Mean
+   apply(prop.averted.peryear.per.sim.sdp.curr, 1, mean)
+   apply(prop.averted.peryear.per.sim.sdp.high, 1, mean)
+   apply(prop.averted.peryear.per.sim.sdp.curr.nodecui, 1, mean)
+
+   ## Standard Errors
+   apply(prop.averted.peryear.per.sim.sdp.curr, 1, function(x) {
+     sd(x)*dt(0.975, df=n.sim-1)/sqrt(n.sim)}
+         )
+
+   apply(prop.averted.peryear.per.sim.sdp.high, 1, function(x) {
+     sd(x)*dt(0.975, df=n.sim-1)/sqrt(n.sim)}
+         )
+
+   apply(prop.averted.peryear.per.sim.sdp.curr.nodecui, 1, function(x) {
+     sd(x)*dt(0.975, df=n.sim-1)/sqrt(n.sim)}
+         )
