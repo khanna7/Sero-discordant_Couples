@@ -11,8 +11,8 @@
   library(statnet)
 
   ## Needed data
-     n.sim <- 5 #num of simulations
-     last.time.pt <- 1300
+     n.sim <- 10 #num of simulations
+     last.time.pt <- 1301
 
 ##############################################
   ### Write function to compute
@@ -83,11 +83,12 @@
                                                  last.time.pt= last.time.pt
                                                  )
 
-  sdp.scenarioIV.viral.supp.data <- compute.viral.supp("sdp_scenarioIV",
-                                                       n.sim=n.sim,
-                                                       date="5Apr", 
-                                                       last.time.pt= last.time.pt
-                                                       )
+  sdp.curr.nodecui.viral.supp.data <- compute.viral.supp(
+                                        "sdp_curr_nodecui",
+                                        n.sim=n.sim,
+                                        date="5Apr", 
+                                        last.time.pt= last.time.pt
+                                                  )
 
 
 ##############################################
