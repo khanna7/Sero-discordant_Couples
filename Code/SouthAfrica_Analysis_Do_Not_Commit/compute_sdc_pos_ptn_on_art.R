@@ -12,7 +12,7 @@
   library(statnet)
 
   ## Needed data
-     n.sim <- 5 #num of simulations
+     n.sim <- 10 #num of simulations
      last.time.pt <- 1300
        ## baseline.data are labeled from 1040 to 1300
        ## others are from 780 to 1040, extracting at 1300
@@ -104,12 +104,6 @@
                                                         date="27May", #2014,
                                                         last.time.pt=last.time.pt
                                                         )
-
-  sdp.scenarioIV.posonart.metrics <- compute.posonart.metrics("sdp_scenarioIV",
-                                                              n.sim=n.sim,
-                                                              date="5Apr", 
-                                                              last.time.pt=last.time.pt
-                                                              )
 
   sdp.curr_nodecui.posonart.metrics <- compute.posonart.metrics("sdp_curr_nodecui",
                                                                 n.sim=n.sim,
