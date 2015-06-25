@@ -152,4 +152,11 @@ prop.averted.high.relto.curr <-
 ## than curr
 
 apply(prop.averted.high.relto.curr, 1, mean)
+
+apply(prop.averted.high.relto.curr,
+      1, function(x) {
+     sd(x)*dt(0.975, df=n.sim-1)/sqrt(n.sim)}
+         )
+
+
 ########################################################
