@@ -106,3 +106,56 @@ sdp.curr.nodecui.total.inf.per.year.per.sim <-
    apply(prop.averted.peryear.per.sim.sdp.curr.nodecui, 1, function(x) {
      sd(x)*dt(0.975, df=n.sim-1)/sqrt(n.sim)}
          )
+
+########################################################
+### Compare "curr sdp" to "high sdp" and add infections
+### averted up to a time point
+########################################################
+
+add.elems <- function(x){
+    y <- rep(0, length(x))
+    y[1] <- x[1]
+
+    for (i in 2:length(y)){
+        y[i] <- sum(x[1:i])
+    }
+    return(y)
+}
+
+
+## cumulative number of infections upto a year
+## in bl.cp
+cum.bl.cp.upto.year <- apply(bl.cp.total.inf.per.year.per.sim,
+                             2,
+                             function(x) {add.elems(x)}
+                             )
+
+cum.sdp.curr.upto.year <- apply(sdp.curr.total.inf.per.year.per.sim,
+                                2,
+                                function(x) {add.elems(x)}
+                                )
+
+cum.sdp.high.upto.year <- apply(sdp.high.total.inf.per.year.per.sim,
+                                2,
+                                function(x) {add.elems(x)}
+                                )
+
+curr.relto.bl <- cum.bl.cp.upto.year - cum.sdp.curr.upto.year
+high.relto.bl <- cum.bl.cp.upto.year - cum.sdp.high.upto.year
+
+prop.averted.high.relto.curr <-
+    (high.relto.bl -
+         curr.relto.bl)/(high.relto.bl) #this is correct
+## high rel tobl > curr relto bl
+## we want to compute what % more are averted in high
+## than curr
+
+apply(prop.averted.high.relto.curr, 1, mean)
+
+apply(prop.averted.high.relto.curr,
+      1, function(x) {
+     sd(x)*dt(0.975, df=n.sim-1)/sqrt(n.sim)}
+         )
+
+
+########################################################
