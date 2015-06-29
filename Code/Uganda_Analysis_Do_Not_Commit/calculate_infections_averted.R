@@ -143,12 +143,11 @@ cum.sdp.high.upto.year <- apply(sdp.high.total.inf.per.year.per.sim,
 curr.relto.bl <- cum.bl.cp.upto.year - cum.sdp.curr.upto.year
 high.relto.bl <- cum.bl.cp.upto.year - cum.sdp.high.upto.year
 
+## compute infections averted directly,
+## not relative to baseline
 prop.averted.high.relto.curr <-
-    (high.relto.bl -
-         curr.relto.bl)/(high.relto.bl) #this is correct
-## high rel tobl > curr relto bl
-## we want to compute what % more are averted in high
-## than curr
+    (cum.sdp.curr.upto.year -
+         cum.sdp.high.upto.year)/(cum.sdp.curr.upto.year)  
 
 apply(prop.averted.high.relto.curr, 1, mean)
 
