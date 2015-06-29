@@ -141,6 +141,8 @@ cum.sdp.high.upto.year <- apply(sdp.high.total.inf.per.year.per.sim,
                                 function(x) {add.elems(x)}
                                 )
 
+## compute infections avereted directly, not
+## relative to baseline
 prop.averted.high.relto.curr <-
     (cum.sdp.curr.upto.year - cum.sdp.high.upto.year)/
         (cum.sdp.curr.upto.year) 
