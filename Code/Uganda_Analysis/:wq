@@ -1,0 +1,105 @@
+n13:~/Projects/Home-Based/Sero-discordant_Couples/Code/Uganda_Analysis_Do_Not_Commit> git commit *.R -m "uganda results"
+[master 08ad5b2] uganda results
+ 5 files changed, 21 insertions(+), 73 deletions(-)
+n13:~/Projects/Home-Based/Sero-discordant_Couples/Code/Uganda_Analysis_Do_Not_Commit> git branch
+* master
+  ug_new_summaries
+n13:~/Projects/Home-Based/Sero-discordant_Couples/Code/Uganda_Analysis_Do_Not_Commit> git checkout ug_new_summaries
+D	Code/SouthAfrica_Analysis_Do_Not_Commit/plots_incidence_graphs.R
+D	Code/SouthAfrica_Analysis_Do_Not_Commit/plots_sdp_interv-rec.R
+D	Code/SouthAfrica_Analysis_Do_Not_Commit/plots_sdp_interv-recovered.R
+D	Code/Uganda_Analysis_Do_Not_Commit/plots_incidence_graphs.R
+Switched to branch 'ug_new_summaries'
+n13:~/Projects/Home-Based/Sero-discordant_Couples/Code/Uganda_Analysis_Do_Not_Commit> 
+n13:~/Projects/Home-Based/Sero-discordant_Couples/Code/Uganda_Analysis_Do_Not_Commit> 
+n13:~/Projects/Home-Based/Sero-discordant_Couples/Code/Uganda_Analysis_Do_Not_Commit> git branch
+  master
+* ug_new_summaries
+n13:~/Projects/Home-Based/Sero-discordant_Couples/Code/Uganda_Analysis_Do_Not_Commit> git checkout master
+D	Code/SouthAfrica_Analysis_Do_Not_Commit/plots_incidence_graphs.R
+D	Code/SouthAfrica_Analysis_Do_Not_Commit/plots_sdp_interv-rec.R
+D	Code/SouthAfrica_Analysis_Do_Not_Commit/plots_sdp_interv-recovered.R
+D	Code/Uganda_Analysis_Do_Not_Commit/plots_incidence_graphs.R
+Switched to branch 'master'
+n13:~/Projects/Home-Based/Sero-discordant_Couples/Code/Uganda_Analysis_Do_Not_Commit> git merge ug_new_summaries
+Already up-to-date.
+n13:~/Projects/Home-Based/Sero-discordant_Couples/Code/Uganda_Analysis_Do_Not_Commit> git push origin master
+p11-kit: couldn't load module: /usr/lib/x86_64-linux-gnu/pkcs11/gnome-keyring-pkcs11.so: /usr/lib/x86_64-linux-gnu/pkcs11/gnome-keyring-pkcs11.so: cannot open shared object file: No such file or directory
+Username for 'https://github.com': khanna7
+Password for 'https://khanna7@github.com': Deepti!sgr8
+
+To https://github.com/khanna7/Sero-discordant_Couples.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'https://github.com/khanna7/Sero-discordant_Couples.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Merge the remote changes (e.g. 'git pull')
+hint: before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+n13:~/Projects/Home-Based/Sero-discordant_Couples/Code/Uganda_Analysis_Do_Not_Commit> 
+n13:~/Projects/Home-Based/Sero-discordant_Couples/Code/Uganda_Analysis_Do_Not_Commit> 
+n13:~/Projects/Home-Based/Sero-discordant_Couples/Code/Uganda_Analysis_Do_Not_Commit> 
+n13:~/Projects/Home-Based/Sero-discordant_Couples/Code/Uganda_Analysis_Do_Not_Commit> git push origin master
+p11-kit: couldn't load module: /usr/lib/x86_64-linux-gnu/pkcs11/gnome-keyring-pkcs11.so: /usr/lib/x86_64-linux-gnu/pkcs11/gnome-keyring-pkcs11.so: cannot open shared object file: No such file or directory
+Username for 'https://github.com': khanna7
+Password for 'https://khanna7@github.com': Deepti!sgr8
+
+To https://github.com/khanna7/Sero-discordant_Couples.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'https://github.com/khanna7/Sero-discordant_Couples.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Merge the remote changes (e.g. 'git pull')
+hint: before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+n13:~/Projects/Home-Based/Sero-discordant_Couples/Code/Uganda_Analysis_Do_Not_Commit> git pull origin master
+p11-kit: couldn't load module: /usr/lib/x86_64-linux-gnu/pkcs11/gnome-keyring-pkcs11.so: /usr/lib/x86_64-linux-gnu/pkcs11/gnome-keyring-pkcs11.so: cannot open shared object file: No such file or directory
+remote: Counting objects: 12, done.        
+remote: Compressing objects: 100% (9/9), done.        
+remote: Total 12 (delta 9), reused 6 (delta 3), pack-reused 0        
+Unpacking objects: 100% (12/12), done.
+From https://github.com/khanna7/Sero-discordant_Couples
+ * branch            master     -> FETCH_HEAD
+Removing Code/SouthAfrica_Analysis_Do_Not_Commit/plots_sdp_interv-recovered.R
+Removing Code/SouthAfrica_Analysis_Do_Not_Commit/plots_sdp_interv-rec.R
+Removing Code/SouthAfrica_Analysis_Do_Not_Commit/plots_incidence_graphs.R
+E325: ATTENTION
+Found a swap file by the name ".git/.MERGE_MSG.swp"
+owned by: khanna7   dated: Mon Apr  6 16:51:06 2015
+file name: ~khanna7/Projects/Home-Based/Sero-discordant_Couples/.git/MERGE_MSG
+modified: YES
+user name: khanna7   host name: union
+process ID: 5107
+While opening file ".git/MERGE_MSG"
+dated: Mon Apr  6 17:58:53 2015
+      NEWER than swap file!
+
+(1) Another program may be editing the same file.  If this is the case,
+    be careful not to end up with two different instances of the same
+    file when making changes.  Quit, or continue with caution.
+(2) An edit session for this file crashed.
+    If this is the case, use ":recover" or "vim -r .git/MERGE_MSG"
+    to recover the changes (see ":help recovery").
+    If you did this already, delete the swap file ".git/.MERGE_MSG.swp"
+    to avoid this message.
+
+Swap file ".git/.MERGE_MSG.swp" already exists!
+[O]pen Read-Only, (E)dit anyway, (R)ecover, (D)elete it, (Q)uit, (A)bort:R
+".git/MERGE_MSG" 7L, 304C
+Using swap file ".git/.MERGE_MSG.swp"
+Original file "~/Projects/Home-Based/Sero-discordant_Couples/.git/MERGE_MSG"
+E308: Warning: Original file may have been changed
+Recovery completed. You should check if everything is OK.
+(You might want to write out this file under another name
+and run diff with the original file to check for changes)
+You may want to delete the .swp file now.
+
+
+Press ENTER or type command to continue
+ C-c C-cMerge branch 'addnl_art_init_attributes'
+
+# Please enter a commit message to explain why this merge is necessary,
+# especially if it merges an updated upstream into a topic branch.
+#
+# Lines starting with '#' will be ignored, and an empty message aborts
+# the commit.
+~                                                                                           ~                                                                                           ~                                                                                           ~                                                                                           ~                                                                                           ~                                                                                           ~                                                                                           ~                                                                                           ~                                                                                           ~                                                                                           ~                                                                                           ~                                                                                           ~                                                                                           ~                                                                                           ~                                                                                           ~                                                                                           1,1All
+-- INSERT --      1,1Allpull changes

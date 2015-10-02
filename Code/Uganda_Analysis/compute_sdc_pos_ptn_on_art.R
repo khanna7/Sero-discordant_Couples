@@ -1,0 +1,117 @@
+##############################################
+### Compute SDC with positive partner on ART
+### at last timestep of interventions
+##############################################
+
+  ## At the last time step
+
+##############################################
+
+##############################################
+  rm(list=ls())
+  library(statnet)
+
+  ## Needed data
+     n.sim <- 10 #num of simulations
+     last.time.pt <- 1301
+       ## baseline.data are labeled from 1040 to 1300
+       ## others are from 780 to 1040, extracting at 1300
+       ## will give network at last time step for all cases
+
+##############################################
+  ### Write function to compute
+  ### %vertical transmissions
+##############################################
+
+  compute.posonart.metrics <- function(sdp_scn,
+                                  n.sim=n.sim,
+                                  date,
+                                  last.time.pt,
+                                  ...
+                                  ){
+
+      out.mat <- matrix(NA,
+                        ncol=4,
+                        nrow=n.sim)
+
+     ## Record proportion of vertical transmissions
+     for (i in 1:n.sim){
+       ##browser()
+
+       load(paste("../Uganda_Runs_Do_Not_Commit/nw",date,"_UG_",sdp_scn,"_run",
+                  i,".RData",sep=""))
+       
+       net <- network.collapse(nw, at=last.time.pt)
+
+       ## Matrix
+       el.net <- as.matrix(as.edgelist(net))
+
+       ## Infection status
+       inf.status <- net %v% "inf.status"
+       art.status <- net %v% "art.status"
+
+       ## +ve male in SDC
+       male.pos.in.sdc <- intersect(which(inf.status[el.net[,1]] == 1),
+                                    which(inf.status[el.net[,2]] == 0))
+
+       ## +ve female in SDC
+       female.pos.in.sdc <- intersect(which(inf.status[el.net[,1]] == 0),
+                                      which(inf.status[el.net[,2]] == 1))
+
+       ## +ve male in SDC on ART
+       pos.male.insdc.onart <-
+         which(art.status[el.net[male.pos.in.sdc, 1]] == 1)
+       
+       ## +ve female in SDC on ART
+       pos.female.insdc.onart <-
+         which(art.status[el.net[female.pos.in.sdc, 2]] == 1)       
+       
+       out.mat[i, 1] <- length(male.pos.in.sdc)
+       out.mat[i, 2] <- length(female.pos.in.sdc)
+       out.mat[i, 3] <- length(pos.male.insdc.onart)
+       out.mat[i, 4] <- length(pos.female.insdc.onart)
+        
+     }
+      return(out.mat)
+    }
+
+##############################################
+
+##############################################
+  ### Apply above function to different
+  ### scenarios
+##############################################
+
+  sdp.curr.posonart.metrics <- compute.posonart.metrics("sdp_curr",
+                                                        n.sim=n.sim,
+                                                        date="5Apr", 
+                                                        last.time.pt=last.time.pt
+                                                        )
+
+  sdp.high.posonart.metrics <- compute.posonart.metrics("sdp_high",
+                                                        n.sim=n.sim,
+                                                        date="5Apr", 
+                                                        last.time.pt=last.time.pt
+                                                        )
+
+  baseline.posonart.metrics <- compute.posonart.metrics("bl_cp",
+                                                        n.sim=n.sim,
+                                                        date="28Feb", #2014,
+                                                        last.time.pt=last.time.pt
+                                                        )
+
+  sdp.curr_nodecui.posonart.metrics <- compute.posonart.metrics("sdp_curr_nodecui",
+                                                                n.sim=n.sim,
+                                                                date="5Apr", 
+                                                                last.time.pt=last.time.pt
+                                                                )
+
+##############################################
+
+
+##############################################
+ ### Save object
+##############################################
+  save.image("ug_posonart_metrics.RData")
+
+##############################################

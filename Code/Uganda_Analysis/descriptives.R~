@@ -1,0 +1,45 @@
+## Baseline descriptives
+
+   library(statnet)
+
+   ## South Africa
+   load("../SouthAfrica_Runs_Do_Not_Commit/interv.5Apr_ZA_sdp_scenarioIV_run1.RData")
+   za.nw <- nw
+
+   za.net <- network.collapse(za.nw, at=1040)
+
+   za.inf <- (which(za.net%v%"inf.status" == 1))
+   za.on.art <- (which(za.net%v%"art.status" == 1))
+   za.noton.art <- (which(za.net%v%"art.status" == 0))
+   za.cd4.less.350 <- (which(za.net%v%"cd4.count.today" <= 350))
+   za.opta.ceased <- (which(za.net%v%"art.type" == 3))
+   za.born.last.yr <- (which(za.net%v%"age" <= 19))
+
+   za.inf.noton.art <- intersect(za.inf, za.noton.art)
+   za.inf.cd4less350 <- (intersect(za.inf,za.cd4.less.350))
+   za.inf.art.elig <- intersect(za.inf.cd4less350,
+                                za.noton.art)
+
+   za.inf.born.last.yr <- intersect(za.inf,
+                                    za.born.last.yr)
+
+   len.za.inf <- length(za.inf)
+   len.za.on.art <- length(za.on.art)
+   len.za.cd4.less.350 <- length(za.cd4.less.350)
+   len.za.noton.art <- length(za.noton.art)
+   len.za.inf.noton.art <- length(za.inf.noton.art)
+   len.za.cd4.less.350 <- length(za.cd4.less.350)
+   len.za.inf.art.elig <- length(za.inf.art.elig)
+   len.za.opta.ceased <- length(za.opta.ceased)
+   len.za.born.last.yr <- length(za.born.last.yr)
+   len.za.inf.born.last.yr <- length(za.inf.born.last.yr)
+
+   len.za.on.art/len.za.inf
+   len.za.inf.noton.art/len.za.inf
+   len.za.inf.art.elig/len.za.inf
+   length(za.opta.ceased)/len.za.inf
+   len.za.inf.born.last.yr/len.za.born.last.yr
+
+   intersect(za.inf.art.elig, #elig means who are not currently on ART
+             za.on.art)
+
